@@ -5,12 +5,30 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>My Kitchen HK - Halal Tibetan Food, Fresh and Made To Order</title>
-    <meta content="Indulge in our freshly made-to-order dishes at our Halal Certified restaurant in Hong Kong. 
-    Our hand-made dough momos are a must-try, bursting with flavor and made with care. 
-    Discover our menu of traditional Tibetan cuisine made with the freshest ingredients. 
-    Experience the authentic taste of Tibet with our commitment to Halal certification. 
-    Book your table today and savor the difference!" name="description">
+    <title>My Kitchen HK | Halal Tibetan Food in Jordan, Hong Kong</title>
+    <meta name="description" content="Authentic halal Tibetan food in Jordan, Hong Kong. Handmade momos, thukpa, chowmein &amp; more — cooked fresh to order. Open 7 days from 8:30AM. Order on Deliveroo, Foodpanda, or WhatsApp +852 9845 9097.">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://mykitchen.hk/">
+
+    <!-- Geo -->
+    <meta name="geo.region" content="HK-KOW">
+    <meta name="geo.placename" content="Jordan, Hong Kong">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="restaurant">
+    <meta property="og:site_name" content="My Kitchen HK">
+    <meta property="og:title" content="My Kitchen HK | Halal Tibetan Food in Jordan, Hong Kong">
+    <meta property="og:description" content="Authentic halal Tibetan food in Jordan, Hong Kong. Handmade momos, thukpa, chowmein &amp; more — cooked fresh to order. Open 7 days from 8:30AM.">
+    <meta property="og:url" content="https://mykitchen.hk/">
+    <meta property="og:image" content="https://mykitchen.hk/assets/img/hero.jpg">
+    <meta property="og:locale" content="en_HK">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="My Kitchen HK | Halal Tibetan Food in Jordan, Hong Kong">
+    <meta name="twitter:description" content="Authentic halal Tibetan food in Jordan, Hong Kong. Handmade momos, thukpa, chowmein &amp; more — cooked fresh to order.">
+    <meta name="twitter:image" content="https://mykitchen.hk/assets/img/hero.jpg">
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
@@ -100,7 +118,7 @@
     <div class="container">
         <div class="row justify-content-between gy-5">
             <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-                <h2 data-aos="fade-up">Delicous Tibetan Cuisine<br>Halal Certified</h2>
+                <h2 data-aos="fade-up">Halal Tibetan Food in Hong Kong<br>Fresh &amp; Cooked to Order</h2>
                 <p data-aos="fade-up" data-aos-delay="100">Experience the Flavors of Tibet: Certified Halal Food with Authentic Handmade Momo and Cooked-to-Order Delights Served Fresh!</p>
                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                     <a href="#book-a-table" class="btn-book-a-table">Book</a>
@@ -108,7 +126,7 @@
                 </div>
             </div>
             <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-                <img src="assets/img/hero.jpg" class="img-fluid" alt="Tibetan Momo chicken dumplings with a spicy red sauce, served on a white plate against a dark wood table background." data-aos="zoom-out" data-aos-delay="300">
+                <img src="assets/img/hero.jpg" class="img-fluid" alt="Tibetan chicken momo dumplings with a spicy red sauce, served at My Kitchen HK halal restaurant, Jordan, Hong Kong." data-aos="zoom-out" data-aos-delay="300">
             </div>
         </div>
     </div>
@@ -529,6 +547,7 @@
                             <li><i class="bi bi-check2-all"></i> Halal Certified</li>
                             <li><i class="bi bi-check2-all"></i> Cooked to order Momo Tibetan Dumplings</li>
                         </ul>
+                        <h3>Halal Certified Restaurant in Jordan, Hong Kong</h3>
                         <p>
                             One of our specialties is our momo Tibetan dumplings. These delicate and savory dumplings are filled with a variety of meats and vegetables, and they're a favorite among our customers. We make our momos fresh to order, so you can enjoy them hot and steaming from the kitchen.
 
@@ -891,6 +910,47 @@
 
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "My Kitchen HK",
+  "image": "https://mykitchen.hk/assets/img/hero.jpg",
+  "url": "https://mykitchen.hk",
+  "telephone": "+85298459097",
+  "email": "troythe82@yahoo.com",
+  "servesCuisine": ["Tibetan", "Halal"],
+  "priceRange": "$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "180 Shanghai Street",
+    "addressLocality": "Jordan",
+    "addressRegion": "Kowloon",
+    "addressCountry": "HK"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 22.3074674,
+    "longitude": 114.1677242
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "08:30"
+  },
+  "hasMenu": "https://mykitchen.hk/#menu",
+  "sameAs": [
+    "https://www.instagram.com/mykitchenhk/",
+    "https://www.facebook.com/mykitchenHK",
+    "https://www.youtube.com/@mykitchenhk"
+  ],
+  "menu": "https://mykitchen.hk/#menu",
+  "acceptsReservations": true,
+  "description": "Authentic halal Tibetan food in Jordan, Hong Kong. Handmade momos, thukpa, chowmein and more — cooked fresh to order. Open 7 days from 8:30AM."
+}
+</script>
 
 </body>
 
