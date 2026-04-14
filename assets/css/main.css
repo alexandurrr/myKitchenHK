@@ -814,6 +814,7 @@ section {
 .menu .nav-tabs {
   border: 0;
   gap: 10px;
+  padding-bottom: 10px;
 }
 
 .menu .nav-link {
