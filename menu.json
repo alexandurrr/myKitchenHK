@@ -1,0 +1,258 @@
+{
+  "tabs": [
+    {
+      "id": "menu-main",
+      "label": "Menu",
+      "title": "Menu",
+      "items": [
+        {
+          "name": "Khabse",
+          "ingredients": "gluten, milk",
+          "price": "$10.00 per piece",
+          "image": "assets/img/menu/khabse.jpg",
+          "imageWebp": "assets/img/menu/khabse.webp",
+          "alt": "Tibetan Khabse freshly cooked, on a strainer in the kitchen."
+        },
+        {
+          "name": "Whole Wheat Tibetan Brown Bread",
+          "ingredients": "gluten",
+          "price": "$10.00 per piece",
+          "image": "assets/img/menu/tibetan_brown_bread.jpg",
+          "imageWebp": "assets/img/menu/tibetan_brown_bread.webp",
+          "alt": "Fresh Whole Wheat Tibetan Brown Bread, ready in a serving platter."
+        },
+        {
+          "name": "Taipo Chicken Momo",
+          "ingredients": "chicken, gluten",
+          "price": "$50.00",
+          "image": "assets/img/menu/taipo_momo.jpg",
+          "imageWebp": null,
+          "alt": "Taipo Momo with red spicy sauce, on a brown plate against a wood table background."
+        },
+        {
+          "name": "Fried Rice",
+          "ingredients": "chicken/beef/buff, gluten, eggs",
+          "price": "$60.00 Beef/Buff\n$55.00 Chicken\n$50.00 Mix Veg\n$60.00 Panner\n$60.00 Egg",
+          "image": "assets/img/menu/chicken_beef_buff.jpg",
+          "imageWebp": "assets/img/menu/chicken_beef_buff.webp",
+          "alt": "Chicken Fried Rice, served on a brown platter against a white table in the My Kitchen restaurant."
+        },
+        {
+          "name": "Lhaping",
+          "ingredients": "gluten, soya",
+          "price": "$40.00 Dry\n$45.00 Gravy\n$50.00 Egg",
+          "image": "assets/img/menu/Lhaping.jpg",
+          "imageWebp": "assets/img/menu/Lhaping.webp",
+          "alt": "Freshly cooked Lhaping served on a white plate against a white background."
+        },
+        {
+          "name": "Spicy Paneer",
+          "ingredients": "gluten, soya",
+          "price": "$60.00",
+          "image": "assets/img/menu/spicy_paneer.jpg",
+          "imageWebp": "assets/img/menu/spicy_paneer.webp",
+          "alt": "Spicy Paneer served on a white plate against a white background."
+        },
+        {
+          "name": "Spicy Chili Momo",
+          "ingredients": "gluten, beef/chicken/buffalo",
+          "price": "$75.00 Beef/Buff\n$75.00 Chicken\n$75.00 Veg",
+          "image": "assets/img/menu/spicy_chili_momo.jpg",
+          "imageWebp": "assets/img/menu/spicy_chili_momo.webp",
+          "alt": "Spicy Chicken Momo served in a black bowl on a metal background."
+        },
+        {
+          "name": "Steamed Momo",
+          "ingredients": "gluten, chicken",
+          "price": "$55.00 Beef/Buff\n$50.00 Chicken\n$50.00 Veg",
+          "image": "assets/img/menu/chicken_momo_steamed.jpg",
+          "imageWebp": "assets/img/menu/chicken_momo_steamed.webp",
+          "alt": "Steamed Chicken Momo on a white plate against a wood background."
+        },
+        {
+          "name": "Tibetan Bhalep Bread",
+          "ingredients": "gluten",
+          "price": "$10.00 per piece",
+          "image": "assets/img/menu/bhalep.jpg",
+          "imageWebp": "assets/img/menu/bhalep.webp",
+          "alt": "Tibetan Bhalep served in a white bowl against a wood background."
+        },
+        {
+          "name": "Chicken Shabhale",
+          "ingredients": "gluten, chicken",
+          "price": "$30.00",
+          "image": "assets/img/menu/chicken_shabhale.jpg",
+          "imageWebp": "assets/img/menu/chicken_shabhale.webp",
+          "alt": "Fried Shabhale with a spicy red sauce on brown plate against a wood background."
+        },
+        {
+          "name": "Fried Beef Momo",
+          "ingredients": "gluten, beef",
+          "price": "$55.00",
+          "image": "assets/img/menu/fried_beef_momo.jpg",
+          "imageWebp": "assets/img/menu/fried_beef_momo.webp",
+          "alt": "Fried Beef Momo with spicy red sauce on a white plate against a wood background."
+        },
+        {
+          "name": "Chowmein Chicken/Beef/Veg",
+          "ingredients": "gluten, chicken/beef",
+          "price": "$55.00 Beef/Buff\n$55.00 Chicken\n$50.00 Veg\n$60.00 Egg",
+          "image": "assets/img/menu/chowmein.jpg",
+          "imageWebp": "assets/img/menu/chowmein.webp",
+          "alt": "Chowmein on a white plate against a wood background."
+        },
+        {
+          "name": "Shabhalep Beef/Buff",
+          "ingredients": "gluten, beef/buff",
+          "price": "$40.00",
+          "image": "assets/img/menu/shabhalep_beef.jpg",
+          "imageWebp": "assets/img/menu/shabhalep_beef.webp",
+          "alt": "Beef Shabhale with spicy red sauce on a brown plate against a wood background."
+        },
+        {
+          "name": "Steamed Beef/Buff Momo",
+          "ingredients": "gluten, beef/buff",
+          "price": "$55.00",
+          "image": "assets/img/menu/steam_beef_momo.jpg",
+          "imageWebp": "assets/img/menu/steam_beef_momo.webp",
+          "alt": "Steamed Beef Momo with a red sauce on a white plate against a dark background."
+        },
+        {
+          "name": "Veggie Momo Fried/Steamed",
+          "ingredients": "gluten",
+          "price": "$50.00",
+          "image": "assets/img/menu/veg_steamed.jpg",
+          "imageWebp": "assets/img/menu/veg_steamed.webp",
+          "alt": "Fried Veggie Momo with spicy red sauce on a brown plate against a dark background."
+        },
+        {
+          "name": "Tibetan Thukpa Chicken/Beef/Buff",
+          "ingredients": "gluten, chicken/beef/buff",
+          "price": "$60.00 Beef/Buff\n$55.00 Chicken\n$50.00 Veg",
+          "image": "assets/img/menu/tibetan_thukpa.jpg",
+          "imageWebp": "assets/img/menu/tibetan_thukpa.webp",
+          "alt": "Chicken Tibetan Thukpa in a black bowl served with spicy red sauce in a metal slider on a wood background."
+        },
+        {
+          "name": "Spicy Chili Chana",
+          "ingredients": "-",
+          "price": "$35.00",
+          "image": "assets/img/menu/spicy_chana.jpg",
+          "imageWebp": "assets/img/menu/spicy_chana.webp",
+          "alt": "Spicy Chili chana served with fresh tomatoes and onions on a white plate and a metal background."
+        },
+        {
+          "name": "Aloodum",
+          "ingredients": "-",
+          "price": "$30.00",
+          "image": "assets/img/menu/aloodum.jpg",
+          "imageWebp": "assets/img/menu/aloodum.webp",
+          "alt": "Aloodum served on a white plate against a white background."
+        },
+        {
+          "name": "Minced Beef/Buffalo Thukpa",
+          "ingredients": "gluten, beef/buff",
+          "price": "$55.00",
+          "image": "assets/img/menu/beef_noodle.jpg",
+          "imageWebp": "assets/img/menu/beef_noodle.webp",
+          "alt": "Minced Beef Thukpa on a white plate against a white background."
+        },
+        {
+          "name": "Shabtak Beef/Buffalo/Chicken",
+          "ingredients": "gluten, chicken/buffalo/beef",
+          "price": "$50.00",
+          "image": "assets/img/menu/shabtak_beef.jpg",
+          "imageWebp": null,
+          "alt": "Shabtak Beef on a white plate against a dark background."
+        },
+        {
+          "name": "Garlic Chicken",
+          "ingredients": "gluten, chicken",
+          "price": "$65.00",
+          "image": "assets/img/menu/garlic_chicken.jpg",
+          "imageWebp": "assets/img/menu/garlic_chicken.webp",
+          "alt": "Garlic Chicken served on a white plate against a dark background."
+        },
+        {
+          "name": "Spicy Broccoli",
+          "ingredients": "-",
+          "price": "$45.00",
+          "image": "assets/img/menu/spicy_broccoli.jpg",
+          "imageWebp": "assets/img/menu/spicy_broccoli.webp",
+          "alt": "Spicy Broccoli served with fresh veggies on a green plate against a metal background."
+        },
+        {
+          "name": "Spicy Stir Fried Beef/Buffalo",
+          "ingredients": "beef/buffalo",
+          "price": "$65.00",
+          "image": "assets/img/menu/spicy_stir_fry.jpg",
+          "imageWebp": "assets/img/menu/spicy_stir_fry.webp",
+          "alt": "Spicy Stir Fried Beef served on a black bowl against a metal background."
+        },
+        {
+          "name": "Samosa",
+          "ingredients": "gluten",
+          "price": "$8.00 per piece",
+          "image": "assets/img/menu/samosa.jpg",
+          "imageWebp": "assets/img/menu/samosa.webp",
+          "alt": "Samosa served with green sauce on a dark plate against a dark background."
+        },
+        {
+          "name": "Tingmo Bun",
+          "ingredients": "gluten",
+          "price": "$7.00 per piece",
+          "image": "assets/img/menu/tingmo.jpg",
+          "imageWebp": "assets/img/menu/tingmo.webp",
+          "alt": "Tibetan Tingmo Buns freshly cooked on a metal bowl in the kitchen."
+        },
+        {
+          "name": "Spicy Mixed Vegetables",
+          "ingredients": "-",
+          "price": "$45.00",
+          "image": "assets/img/menu/spicy_mixed_veggies.jpg",
+          "imageWebp": "assets/img/menu/spicy_mixed_veggies.webp",
+          "alt": "Spicy Mixed Vegetables in a black container."
+        },
+        {
+          "name": "Dhankdu (Cold Thukpa)",
+          "ingredients": "gluten, chicken",
+          "price": "$50.00",
+          "image": "assets/img/menu/dhankdu.jpg",
+          "imageWebp": "assets/img/menu/dhankdu.webp",
+          "alt": "Tibetan Dhankdu (Cold Thukpa) in a green bowl against a white background."
+        }
+      ]
+    },
+    {
+      "id": "menu-drinks",
+      "label": "Drinks",
+      "title": "Drinks",
+      "items": [
+        {
+          "name": "Masala Tea",
+          "ingredients": "milk",
+          "price": "$10.00",
+          "image": "assets/img/menu/masala_tea.jpg",
+          "imageWebp": "assets/img/menu/masala_tea.webp",
+          "alt": "Masala Tea in a white mug against a wood background."
+        },
+        {
+          "name": "Tibetan Salted Butter Tea",
+          "ingredients": "milk",
+          "price": "$12.00",
+          "image": "assets/img/menu/tibetan_tea.jpg",
+          "imageWebp": "assets/img/menu/tibetan_tea.webp",
+          "alt": "Tibetan Salted Butter Tea in a beautiful artisan cup against a dark background."
+        },
+        {
+          "name": "Lassi",
+          "ingredients": "milk",
+          "price": "$25.00",
+          "image": "assets/img/menu/lassi.jpg",
+          "imageWebp": null,
+          "alt": "Cold Lassi drink in a tall glass with a white and teal straw against a white background."
+        }
+      ]
+    }
+  ]
+}

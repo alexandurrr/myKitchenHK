@@ -180,7 +180,7 @@
                         <h3>Menu</h3>
                     </div>
 
-                    <div class="row g-4">
+                    <div class="row g-4" id="menu-main-items">
 
                         <div class="col-lg-4 menu-item">
                             <a href="assets/img/menu/khabse.jpg" class="glightbox"><picture><source srcset="assets/img/menu/khabse.webp" type="image/webp"><img src="assets/img/menu/khabse.jpg" class="menu-img img-fluid" loading="lazy" alt="Tibetan Khabse freshly cooked, on a strainer in the kitchen."></picture></a>
@@ -504,7 +504,7 @@
                         <h3>Drinks</h3>
                     </div>
 
-                    <div class="row g-4">
+                    <div class="row g-4" id="menu-drinks-items">
 
                         <div class="col-lg-4 menu-item">
                             <a href="assets/img/menu/masala_tea.jpg" class="glightbox"><picture><source srcset="assets/img/menu/masala_tea.webp" type="image/webp"><img src="assets/img/menu/masala_tea.jpg" class="menu-img img-fluid" loading="lazy" alt="Masala Tea in a white mug against a wood background"></picture></a>
@@ -1039,6 +1039,38 @@
   },
   "description": "Authentic halal Tibetan food in Jordan, Hong Kong. Handmade momos, thukpa, chowmein and more — cooked fresh to order. Open 7 days from 8:30AM."
 }
+</script>
+
+<!-- Dynamic menu loader — renders from menu.json; hardcoded items above are a no-JS fallback -->
+<script>
+(function () {
+  function renderItems(items) {
+    return items.map(function (item) {
+      var price = (item.price || '').split('\n').join('<br>');
+      var img = item.imageWebp
+        ? '<picture><source srcset="' + item.imageWebp + '" type="image/webp">'
+          + '<img src="' + item.image + '" class="menu-img img-fluid" loading="lazy" alt="' + (item.alt || '') + '"></picture>'
+        : '<img src="' + item.image + '" class="menu-img img-fluid" loading="lazy" alt="' + (item.alt || '') + '">';
+      return '<div class="col-lg-4 menu-item">'
+        + '<a href="' + item.image + '" class="glightbox">' + img + '</a>'
+        + '<h4>' + item.name + '</h4>'
+        + '<p class="ingredients">' + (item.ingredients || '-') + '</p>'
+        + '<p class="price">' + price + '</p>'
+        + '</div>';
+    }).join('');
+  }
+
+  fetch('menu.json')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      data.tabs.forEach(function (tab) {
+        var el = document.getElementById(tab.id + '-items');
+        if (el) el.innerHTML = renderItems(tab.items);
+      });
+      if (typeof GLightbox === 'function') GLightbox({ selector: '.glightbox' });
+    })
+    .catch(function () {});
+})();
 </script>
 
 </body>
