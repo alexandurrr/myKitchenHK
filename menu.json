@@ -229,6 +229,14 @@
       "title": "Drinks",
       "items": [
         {
+          "name": "specia123123",
+          "ingredients": "gluten, cswss",
+          "price": "$555.000\n$20.00 buff",
+          "image": "assets/img/menu/specialmomo.jpg",
+          "imageWebp": null,
+          "alt": "speciality momo1"
+        },
+        {
           "name": "Masala Tea",
           "ingredients": "milk",
           "price": "$10.00",
@@ -251,14 +259,6 @@
           "image": "assets/img/menu/lassi.jpg",
           "imageWebp": null,
           "alt": "Cold Lassi drink in a tall glass with a white and teal straw against a white background."
-        },
-        {
-          "name": "specia123123",
-          "ingredients": "gluten, cswss",
-          "price": "$555.000\n$20.00 buff",
-          "image": "assets/img/menu/specialmomo.jpg",
-          "imageWebp": null,
-          "alt": "speciality momo1"
         }
       ]
     }
