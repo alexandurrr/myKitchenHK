@@ -11,16 +11,13 @@
     body { background: #f5f5f5; padding-bottom: 72px; }
     .navbar-brand { font-weight: 700; }
 
-    /* Menu item cards */
+    /* Menu cards */
     .item-card {
       background: white; border: 1px solid #dee2e6; border-radius: 8px;
       padding: 12px 16px; margin-bottom: 8px;
       display: flex; align-items: center; gap: 14px;
     }
-    .item-thumb {
-      width: 64px; height: 64px; object-fit: cover;
-      border-radius: 6px; flex-shrink: 0;
-    }
+    .item-thumb { width: 64px; height: 64px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
     .item-thumb-placeholder {
       width: 64px; height: 64px; border-radius: 6px; flex-shrink: 0;
       background: #e9ecef; display: flex; align-items: center;
@@ -35,22 +32,22 @@
     .action-col { display: flex; gap: 6px; flex-shrink: 0; }
 
     /* Gallery grid */
-    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-    .gallery-card {
-      background: white; border: 1px solid #dee2e6; border-radius: 8px;
-      overflow: hidden; position: relative;
-    }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    .gallery-card { background: white; border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden; position: relative; }
     .gallery-card img { width: 100%; height: 110px; object-fit: cover; display: block; }
-    .gallery-card .gc-alt { font-size: .72rem; color: #555; padding: 4px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .gallery-card .gc-actions {
-      position: absolute; top: 4px; right: 4px;
-      display: flex; gap: 3px;
+    .gallery-card .gc-alt {
+      font-size: .72rem; color: #555; padding: 4px 6px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      cursor: pointer;
     }
-    .gallery-card .gc-actions .btn { padding: 2px 6px; font-size: 11px; line-height: 1.4; }
+    .gallery-card .gc-del {
+      position: absolute; top: 4px; right: 4px;
+      padding: 1px 6px; font-size: 13px; line-height: 1.5;
+    }
     .gallery-card .gc-move { display: flex; justify-content: space-between; padding: 2px 4px; border-top: 1px solid #f0f0f0; }
     .gallery-card .gc-move .btn { padding: 1px 8px; font-size: 12px; }
 
-    /* Sticky bottom bar */
+    /* Sticky bar */
     .sticky-bar {
       position: fixed; bottom: 0; left: 0; right: 0;
       background: white; border-top: 1px solid #dee2e6;
@@ -59,7 +56,7 @@
       display: flex; align-items: center; justify-content: space-between; gap: 12px;
       z-index: 1040;
     }
-    .sticky-bar #saveStatus { font-size: .85rem; flex: 1; text-align: right; }
+    #saveStatus { font-size: .85rem; flex: 1; text-align: right; }
 
     .nav-pills .nav-link.active { background-color: #dc3545; }
     .nav-pills .nav-link { color: #dc3545; }
@@ -86,7 +83,7 @@
       <h5 class="card-title mb-1">Connect to GitHub</h5>
       <p class="text-muted small mb-3">
         Create a token at <strong>GitHub &rarr; Settings &rarr; Developer settings &rarr; Personal access tokens &rarr; Fine-grained tokens</strong>.
-        Grant <strong>Contents: Read and write</strong> access on the <code>myKitchenHK</code> repository only.
+        Grant <strong>Contents: Read and write</strong> on the <code>myKitchenHK</code> repo only.
       </p>
       <div class="input-group">
         <input type="password" class="form-control" id="patInput" placeholder="github_pat_…" autocomplete="off">
@@ -103,45 +100,31 @@
         <i class="bi bi-megaphone text-danger"></i> Announcement Banner
       </label>
       <div class="input-group">
-        <input class="form-control" id="announcementInput"
-          placeholder="e.g. Closed this Sunday 8 June. Back Monday!">
+        <input class="form-control" id="announcementInput" placeholder="e.g. Closed this Sunday 8 June. Back Monday!">
         <button class="btn btn-outline-secondary" id="announcementToggle" type="button" style="min-width:90px"></button>
       </div>
-      <div class="form-text">Type a message, click <strong>Show</strong> to publish it on the site. Saves with <strong>Save to GitHub</strong>.</div>
+      <div class="form-text">Type a message, click <strong>Show</strong> to publish. Saves with <strong>Save to GitHub</strong>.</div>
     </div>
   </div>
 
-  <!-- Menu editor -->
+  <!-- Tabs + content -->
   <div id="editorSection" style="display:none">
     <ul class="nav nav-pills mb-3" id="tabPills"></ul>
     <div id="tabContent"></div>
   </div>
 
-  <!-- Gallery editor -->
-  <div id="gallerySection" class="mt-4" style="display:none">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h5 class="mb-0"><i class="bi bi-images text-danger"></i> Gallery</h5>
-      <div class="d-flex gap-2 align-items-center">
-        <div id="gallerySaveStatus" class="small"></div>
-        <label class="btn btn-outline-secondary mb-0" id="uploadLabel">
-          <i class="bi bi-upload"></i> Upload Photos
-          <input type="file" id="galleryUpload" accept="image/*" multiple style="display:none">
-        </label>
-        <button class="btn btn-danger" id="saveGalleryBtn">
-          <i class="bi bi-cloud-upload"></i> Save Gallery
-        </button>
-      </div>
-    </div>
-    <div id="uploadingStatus" class="small text-secondary mb-2"></div>
-    <div class="gallery-grid" id="galleryGrid"></div>
-  </div>
-
 </div>
 
-<!-- Sticky bottom bar (menu save) -->
+<!-- Hidden gallery file input -->
+<input type="file" id="galleryUpload" accept="image/*" multiple style="display:none">
+
+<!-- Sticky bar -->
 <div class="sticky-bar" id="stickyBar" style="display:none">
   <button class="btn btn-outline-secondary" id="addItemBtn">
     <i class="bi bi-plus-circle"></i> Add Item
+  </button>
+  <button class="btn btn-outline-secondary" id="uploadPhotosBtn" style="display:none">
+    <i class="bi bi-upload"></i> Upload Photos
   </button>
   <div id="saveStatus"></div>
   <button class="btn btn-danger" id="saveBtn">
@@ -149,7 +132,7 @@
   </button>
 </div>
 
-<!-- Add / Edit modal -->
+<!-- Menu item modal -->
 <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -210,7 +193,7 @@
   </div>
 </div>
 
-<!-- Gallery alt text modal -->
+<!-- Alt text modal -->
 <div class="modal fade" id="altModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -234,9 +217,10 @@
 (function () {
   'use strict';
 
-  const OWNER  = 'alexandurrr';
-  const REPO   = 'myKitchenHK';
-  const BRANCH = 'main';
+  const OWNER       = 'alexandurrr';
+  const REPO        = 'myKitchenHK';
+  const BRANCH      = 'main';
+  const GALLERY_TAB = '__gallery__';
 
   let pat           = localStorage.getItem('gh_pat') || '';
   let menuData      = null;
@@ -309,6 +293,10 @@
     }
   }
 
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
   // ── Auth ─────────────────────────────────────────────────────────────────────
 
   document.getElementById('connectBtn').addEventListener('click', connect);
@@ -330,16 +318,14 @@
       menuSha     = menuResult.sha;
       galleryData = galleryResult.content;
       gallerySha  = galleryResult.sha;
-      activeTab   = menuData.tabs[0]?.id || null;
+      activeTab   = menuData.tabs[0]?.id || GALLERY_TAB;
 
       document.getElementById('authSection').style.display        = 'none';
       document.getElementById('announcementSection').style.display = '';
       document.getElementById('editorSection').style.display      = '';
-      document.getElementById('gallerySection').style.display     = '';
       document.getElementById('stickyBar').style.display          = '';
       document.getElementById('logoutBtn').style.display          = '';
       renderEditor();
-      renderGallery();
     } catch (err) {
       setAuthStatus('Error: ' + err.message, 'danger');
     }
@@ -348,10 +334,11 @@
   function logout() {
     localStorage.removeItem('gh_pat');
     pat = ''; menuData = null; menuSha = null; galleryData = null; gallerySha = null;
-    ['authSection'].forEach(id => document.getElementById(id).style.display = '');
-    ['announcementSection','editorSection','gallerySection','stickyBar'].forEach(id =>
-      document.getElementById(id).style.display = 'none');
-    document.getElementById('logoutBtn').style.display = 'none';
+    document.getElementById('authSection').style.display        = '';
+    document.getElementById('announcementSection').style.display = 'none';
+    document.getElementById('editorSection').style.display      = 'none';
+    document.getElementById('stickyBar').style.display          = 'none';
+    document.getElementById('logoutBtn').style.display          = 'none';
     document.getElementById('patInput').value = '';
     setAuthStatus('', '');
   }
@@ -361,7 +348,7 @@
     el.innerHTML = html ? `<span class="text-${type}">${html}</span>` : '';
   }
 
-  // ── Save menu ────────────────────────────────────────────────────────────────
+  // ── Save (both files) ────────────────────────────────────────────────────────
 
   document.getElementById('saveBtn').addEventListener('click', async () => {
     const btn    = document.getElementById('saveBtn');
@@ -369,27 +356,19 @@
     btn.disabled = true;
     status.innerHTML = '<span class="text-secondary"><i class="bi bi-arrow-repeat"></i> Saving…</span>';
     try {
-      const fresh = await loadFile('menu.json');
-      menuSha = fresh.sha;
-      menuSha = await saveFile('menu.json', menuSha, menuData, 'Update menu via admin panel');
+      const [freshMenu, freshGallery] = await Promise.all([
+        loadFile('menu.json'),
+        loadFile('gallery.json')
+      ]);
+      menuSha    = freshMenu.sha;
+      gallerySha = freshGallery.sha;
+
+      await Promise.all([
+        saveFile('menu.json',    menuSha,    menuData,    'Update menu via admin panel'),
+        saveFile('gallery.json', gallerySha, galleryData, 'Update gallery via admin panel')
+      ]);
+
       status.innerHTML = '<span class="text-success"><i class="bi bi-check-circle"></i> Saved! Site updates in ~60 s.</span>';
-    } catch (err) {
-      status.innerHTML = `<span class="text-danger"><i class="bi bi-x-circle"></i> ${err.message}</span>`;
-    } finally { btn.disabled = false; }
-  });
-
-  // ── Save gallery ─────────────────────────────────────────────────────────────
-
-  document.getElementById('saveGalleryBtn').addEventListener('click', async () => {
-    const btn    = document.getElementById('saveGalleryBtn');
-    const status = document.getElementById('gallerySaveStatus');
-    btn.disabled = true;
-    status.innerHTML = '<span class="text-secondary"><i class="bi bi-arrow-repeat"></i> Saving…</span>';
-    try {
-      const fresh = await loadFile('gallery.json');
-      gallerySha = fresh.sha;
-      gallerySha = await saveFile('gallery.json', gallerySha, galleryData, 'Update gallery via admin panel');
-      status.innerHTML = '<span class="text-success"><i class="bi bi-check-circle"></i> Saved!</span>';
     } catch (err) {
       status.innerHTML = `<span class="text-danger"><i class="bi bi-x-circle"></i> ${err.message}</span>`;
     } finally { btn.disabled = false; }
@@ -397,50 +376,62 @@
 
   // ── Announcement ─────────────────────────────────────────────────────────────
 
-  function renderAnnouncement() {
-    const input  = document.getElementById('announcementInput');
-    const toggle = document.getElementById('announcementToggle');
-    if (!input || !toggle) return;
-    input.value        = menuData.announcement || '';
-    toggle.textContent = menuData.announcementEnabled ? 'Hide' : 'Show';
-    toggle.className   = menuData.announcementEnabled ? 'btn btn-danger' : 'btn btn-outline-secondary';
-  }
-
   document.getElementById('announcementToggle').addEventListener('click', () => {
     menuData.announcement        = document.getElementById('announcementInput').value.trim();
     menuData.announcementEnabled = !menuData.announcementEnabled;
     document.getElementById('saveStatus').innerHTML = '';
-    renderAnnouncement();
+    syncAnnouncementUI();
   });
 
   document.getElementById('announcementInput').addEventListener('input', function () {
     menuData.announcement = this.value;
   });
 
-  // ── Menu editor ──────────────────────────────────────────────────────────────
+  function syncAnnouncementUI() {
+    const enabled = !!menuData.announcementEnabled;
+    document.getElementById('announcementInput').value  = menuData.announcement || '';
+    document.getElementById('announcementToggle').textContent = enabled ? 'Hide' : 'Show';
+    document.getElementById('announcementToggle').className   = enabled
+      ? 'btn btn-danger' : 'btn btn-outline-secondary';
+  }
+
+  // ── Tab rendering ────────────────────────────────────────────────────────────
 
   function renderEditor() {
     renderPills();
     renderActiveTab();
-    renderAnnouncement();
+    syncAnnouncementUI();
   }
 
   function renderPills() {
     const pills = document.getElementById('tabPills');
-    pills.innerHTML = menuData.tabs.map(tab => `
+    const tabs  = [
+      ...menuData.tabs.map(t => ({ id: t.id, label: t.label })),
+      { id: GALLERY_TAB, label: '<i class="bi bi-images"></i> Gallery' }
+    ];
+    pills.innerHTML = tabs.map(t => `
       <li class="nav-item">
-        <button class="nav-link ${tab.id === activeTab ? 'active' : ''}" data-tab="${tab.id}">${tab.label}</button>
+        <button class="nav-link ${t.id === activeTab ? 'active' : ''}" data-tab="${t.id}">${t.label}</button>
       </li>`).join('');
     pills.querySelectorAll('button').forEach(btn =>
-      btn.addEventListener('click', () => { activeTab = btn.dataset.tab; renderEditor(); })
+      btn.addEventListener('click', () => { activeTab = btn.dataset.tab; renderActiveTab(); renderPills(); })
     );
   }
 
   function renderActiveTab() {
+    const isGallery = activeTab === GALLERY_TAB;
+    document.getElementById('addItemBtn').style.display      = isGallery ? 'none' : '';
+    document.getElementById('uploadPhotosBtn').style.display = isGallery ? '' : 'none';
+    isGallery ? renderGalleryContent() : renderMenuContent();
+  }
+
+  // ── Menu tab ─────────────────────────────────────────────────────────────────
+
+  function renderMenuContent() {
     const tab     = menuData.tabs.find(t => t.id === activeTab);
     const content = document.getElementById('tabContent');
     if (!tab) { content.innerHTML = ''; return; }
-    if (tab.items.length === 0) {
+    if (!tab.items.length) {
       content.innerHTML = '<div class="text-muted text-center py-5">No items yet — click <strong>Add Item</strong>.</div>';
       return;
     }
@@ -456,60 +447,69 @@
         </div>
         <div class="move-col">
           <button class="btn btn-outline-secondary btn-sm move-up" data-tab="${tab.id}" data-i="${i}" ${i === 0 ? 'disabled' : ''}>↑</button>
-          <button class="btn btn-outline-secondary btn-sm move-dn" data-tab="${tab.id}" data-i="${i}" ${i === tab.items.length - 1 ? 'disabled' : ''}>↓</button>
+          <button class="btn btn-outline-secondary btn-sm move-dn" data-tab="${tab.id}" data-i="${i}" ${i === tab.items.length-1 ? 'disabled' : ''}>↓</button>
         </div>
         <div class="action-col">
           <button class="btn btn-sm btn-outline-primary edit-btn" data-tab="${tab.id}" data-i="${i}">Edit</button>
-          <button class="btn btn-sm btn-outline-danger del-btn"  data-tab="${tab.id}" data-i="${i}">Delete</button>
+          <button class="btn btn-sm btn-outline-danger del-btn"   data-tab="${tab.id}" data-i="${i}">Delete</button>
         </div>
       </div>`).join('');
 
     content.querySelectorAll('.edit-btn').forEach(b => b.addEventListener('click', () => openEdit(b.dataset.tab, +b.dataset.i)));
     content.querySelectorAll('.del-btn').forEach(b  => b.addEventListener('click', () => deleteItem(b.dataset.tab, +b.dataset.i)));
-    content.querySelectorAll('.move-up').forEach(b  => b.addEventListener('click', () => moveItem(b.dataset.tab, +b.dataset.i, -1)));
-    content.querySelectorAll('.move-dn').forEach(b  => b.addEventListener('click', () => moveItem(b.dataset.tab, +b.dataset.i, +1)));
+    content.querySelectorAll('.move-up').forEach(b  => b.addEventListener('click', () => moveMenuItem(b.dataset.tab, +b.dataset.i, -1)));
+    content.querySelectorAll('.move-dn').forEach(b  => b.addEventListener('click', () => moveMenuItem(b.dataset.tab, +b.dataset.i, +1)));
   }
 
-  function escHtml(str) {
-    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  function deleteItem(tabId, index) {
+    const tab = menuData.tabs.find(t => t.id === tabId);
+    if (!confirm(`Delete "${tab.items[index]?.name}"?`)) return;
+    tab.items.splice(index, 1);
+    document.getElementById('saveStatus').innerHTML = '';
+    renderMenuContent();
   }
 
-  // ── Gallery editor ───────────────────────────────────────────────────────────
+  function moveMenuItem(tabId, index, dir) {
+    const items = menuData.tabs.find(t => t.id === tabId).items;
+    const dest  = index + dir;
+    if (dest < 0 || dest >= items.length) return;
+    [items[index], items[dest]] = [items[dest], items[index]];
+    renderMenuContent();
+  }
 
-  function renderGallery() {
-    const grid = document.getElementById('galleryGrid');
-    if (!galleryData || !galleryData.images) { grid.innerHTML = ''; return; }
-    if (galleryData.images.length === 0) {
-      grid.innerHTML = '<div class="text-muted py-4">No photos yet — click Upload Photos.</div>';
+  // ── Gallery tab ───────────────────────────────────────────────────────────────
+
+  function renderGalleryContent() {
+    const content = document.getElementById('tabContent');
+    if (!galleryData?.images?.length) {
+      content.innerHTML = '<div class="text-muted text-center py-5">No photos yet — click <strong>Upload Photos</strong>.</div>';
       return;
     }
-    grid.innerHTML = galleryData.images.map((img, i) => `
+    content.innerHTML = `<div class="gallery-grid">${galleryData.images.map((img, i) => `
       <div class="gallery-card">
-        <img src="${img.image}" alt="${escHtml(img.alt || '')}" onerror="this.style.opacity='.3'">
-        <div class="gc-actions">
-          <button class="btn btn-sm btn-danger gc-del" data-i="${i}" title="Delete">&times;</button>
-        </div>
-        <div class="gc-alt gc-edit-alt" data-i="${i}" title="Click to edit alt text" style="cursor:pointer">
+        <img src="${img.image}" alt="${escHtml(img.alt || '')}" onerror="this.style.opacity='.25'">
+        <button class="btn btn-sm btn-danger gc-del" data-i="${i}">&times;</button>
+        <div class="gc-alt gc-edit-alt" data-i="${i}" title="Click to edit alt text">
           ${img.alt ? escHtml(img.alt) : '<span class="text-muted fst-italic">add alt text…</span>'}
         </div>
         <div class="gc-move">
           <button class="btn btn-outline-secondary btn-sm gc-up" data-i="${i}" ${i === 0 ? 'disabled' : ''}>←</button>
-          <button class="btn btn-outline-secondary btn-sm gc-dn" data-i="${i}" ${i === galleryData.images.length - 1 ? 'disabled' : ''}>→</button>
+          <button class="btn btn-outline-secondary btn-sm gc-dn" data-i="${i}" ${i === galleryData.images.length-1 ? 'disabled' : ''}>→</button>
         </div>
-      </div>`).join('');
+      </div>`).join('')}</div>`;
 
-    grid.querySelectorAll('.gc-del').forEach(b => b.addEventListener('click', () => deleteGalleryItem(+b.dataset.i)));
-    grid.querySelectorAll('.gc-up').forEach(b  => b.addEventListener('click', () => moveGalleryItem(+b.dataset.i, -1)));
-    grid.querySelectorAll('.gc-dn').forEach(b  => b.addEventListener('click', () => moveGalleryItem(+b.dataset.i, +1)));
-    grid.querySelectorAll('.gc-edit-alt').forEach(b => b.addEventListener('click', () => openAltModal(+b.dataset.i)));
+    content.querySelectorAll('.gc-del').forEach(b => b.addEventListener('click', () => deleteGalleryItem(+b.dataset.i)));
+    content.querySelectorAll('.gc-up').forEach(b  => b.addEventListener('click', () => moveGalleryItem(+b.dataset.i, -1)));
+    content.querySelectorAll('.gc-dn').forEach(b  => b.addEventListener('click', () => moveGalleryItem(+b.dataset.i, +1)));
+    content.querySelectorAll('.gc-edit-alt').forEach(b => b.addEventListener('click', () => openAltModal(+b.dataset.i)));
   }
 
   function deleteGalleryItem(i) {
     const name = galleryData.images[i]?.image.split('/').pop() || 'this photo';
     if (!confirm(`Remove "${name}" from the gallery?`)) return;
     galleryData.images.splice(i, 1);
-    document.getElementById('gallerySaveStatus').innerHTML = '';
-    renderGallery();
+    document.getElementById('saveStatus').innerHTML = '';
+    renderGalleryContent();
   }
 
   function moveGalleryItem(i, dir) {
@@ -517,7 +517,7 @@
     const dest = i + dir;
     if (dest < 0 || dest >= imgs.length) return;
     [imgs[i], imgs[dest]] = [imgs[dest], imgs[i]];
-    renderGallery();
+    renderGalleryContent();
   }
 
   // Alt text modal
@@ -531,39 +531,44 @@
   document.getElementById('saveAltBtn').addEventListener('click', () => {
     if (editingAltIdx === null) return;
     galleryData.images[editingAltIdx].alt = document.getElementById('altInput').value.trim();
+    editingAltIdx = null;
     altModal.hide();
-    document.getElementById('gallerySaveStatus').innerHTML = '';
-    renderGallery();
+    document.getElementById('saveStatus').innerHTML = '';
+    renderGalleryContent();
   });
 
-  // Gallery photo upload
+  // Photo upload
+  document.getElementById('uploadPhotosBtn').addEventListener('click', () => {
+    document.getElementById('galleryUpload').click();
+  });
+
   document.getElementById('galleryUpload').addEventListener('change', async function () {
     const files  = Array.from(this.files);
     if (!files.length) return;
-    const status = document.getElementById('uploadingStatus');
-    const label  = document.getElementById('uploadLabel');
-    label.classList.add('disabled');
+    const status = document.getElementById('saveStatus');
+    const btn    = document.getElementById('uploadPhotosBtn');
+    btn.disabled = true;
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const slug = file.name.replace(/\s+/g, '_').toLowerCase();
       const path = `assets/img/gallery/${slug}`;
-      status.innerHTML = `<i class="bi bi-arrow-repeat"></i> Uploading ${i + 1}/${files.length}: ${escHtml(slug)}…`;
+      status.innerHTML = `<span class="text-secondary"><i class="bi bi-arrow-repeat"></i> Uploading ${i+1}/${files.length}: ${escHtml(slug)}</span>`;
       try {
         await uploadImage(file, path);
         galleryData.images.push({ image: path, imageWebp: null, alt: '' });
       } catch (err) {
-        status.innerHTML = `<span class="text-danger">Failed: ${escHtml(err.message)}</span>`;
-        label.classList.remove('disabled');
+        status.innerHTML = `<span class="text-danger"><i class="bi bi-x-circle"></i> ${escHtml(err.message)}</span>`;
+        btn.disabled = false;
+        this.value = '';
         return;
       }
     }
 
-    status.innerHTML = `<span class="text-success"><i class="bi bi-check-circle"></i> ${files.length} photo(s) uploaded — click <strong>Save Gallery</strong> to publish.</span>`;
-    label.classList.remove('disabled');
-    document.getElementById('gallerySaveStatus').innerHTML = '';
-    this.value = '';
-    renderGallery();
+    status.innerHTML = `<span class="text-success"><i class="bi bi-check-circle"></i> ${files.length} photo(s) uploaded — click <strong>Save to GitHub</strong> to publish.</span>`;
+    btn.disabled = false;
+    this.value   = '';
+    renderGalleryContent();
   });
 
   // ── Menu item modal ──────────────────────────────────────────────────────────
@@ -633,7 +638,7 @@
     saveItemBtn.disabled = true;
     try {
       if (fileInput.files[0] && imagePath) {
-        uploadStatus.innerHTML = '<i class="bi bi-arrow-repeat"></i> Uploading image…';
+        uploadStatus.innerHTML  = '<i class="bi bi-arrow-repeat"></i> Uploading image…';
         saveItemBtn.textContent = 'Uploading…';
         await uploadImage(fileInput.files[0], imagePath);
         uploadStatus.innerHTML = '<span class="text-success"><i class="bi bi-check"></i> Uploaded</span>';
@@ -641,10 +646,12 @@
 
       const targetTabId = document.getElementById('itemCategory').value;
       const item = {
-        name, ingredients: document.getElementById('itemIngredients').value.trim(),
-        price: document.getElementById('itemPrice').value.trim(), image: imagePath,
-        imageWebp: document.getElementById('itemImageWebp').value.trim() || null,
-        alt: document.getElementById('itemAlt').value.trim()
+        name,
+        ingredients: document.getElementById('itemIngredients').value.trim(),
+        price:       document.getElementById('itemPrice').value.trim(),
+        image:       imagePath,
+        imageWebp:   document.getElementById('itemImageWebp').value.trim() || null,
+        alt:         document.getElementById('itemAlt').value.trim()
       };
 
       if (editing) {
@@ -661,7 +668,7 @@
 
       itemModal.hide();
       document.getElementById('saveStatus').innerHTML = '';
-      renderEditor();
+      renderMenuContent();
     } catch (err) {
       uploadStatus.innerHTML = `<span class="text-danger"><i class="bi bi-x-circle"></i> ${err.message}</span>`;
     } finally {
@@ -669,22 +676,6 @@
       saveItemBtn.textContent = 'Save Item';
     }
   });
-
-  function deleteItem(tabId, index) {
-    const tab  = menuData.tabs.find(t => t.id === tabId);
-    if (!confirm(`Delete "${tab.items[index]?.name}"?`)) return;
-    tab.items.splice(index, 1);
-    document.getElementById('saveStatus').innerHTML = '';
-    renderEditor();
-  }
-
-  function moveItem(tabId, index, dir) {
-    const items = menuData.tabs.find(t => t.id === tabId).items;
-    const dest  = index + dir;
-    if (dest < 0 || dest >= items.length) return;
-    [items[index], items[dest]] = [items[dest], items[index]];
-    renderEditor();
-  }
 
   // ── Auto-connect ─────────────────────────────────────────────────────────────
 
