@@ -1117,6 +1117,35 @@
       IDS.forEach(show);
     });
 
+  // Gallery loader — fetches gallery.json and re-initialises the Swiper slider
+  fetch('gallery.json')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data.images || !data.images.length) return;
+      var galleryEl = document.querySelector('.gallery-slider');
+      var wrapper   = galleryEl && galleryEl.querySelector('.swiper-wrapper');
+      if (!wrapper) return;
+
+      wrapper.innerHTML = data.images.map(function (item) {
+        var inner = item.imageWebp
+          ? '<picture><source srcset="' + item.imageWebp + '" type="image/webp">'
+            + '<img src="' + item.image + '" class="img-fluid" loading="lazy" alt="' + (item.alt || '') + '"></picture>'
+          : '<img src="' + item.image + '" class="img-fluid" loading="lazy" alt="' + (item.alt || '') + '">';
+        return '<div class="swiper-slide">' + inner + '</div>';
+      }).join('');
+
+      if (galleryEl.swiper) galleryEl.swiper.destroy(true, true);
+      new Swiper('.gallery-slider', {
+        speed: 400,
+        loop: true,
+        centeredSlides: true,
+        autoplay: { delay: 3000 },
+        slidesPerView: 'auto',
+        pagination: { el: '.gallery-slider .swiper-pagination', type: 'bullets', clickable: true }
+      });
+    })
+    .catch(function () {});
+
   // Fix: lazy images in hidden Bootstrap tabs don't load until viewport changes.
   // Dispatching resize on tab switch forces the browser to re-evaluate them.
   document.querySelectorAll('[data-bs-toggle="tab"]').forEach(function (btn) {
