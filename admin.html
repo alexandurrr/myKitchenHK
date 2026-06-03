@@ -103,7 +103,7 @@
         <input class="form-control" id="announcementInput" placeholder="e.g. Closed this Sunday 8 June. Back Monday!">
         <button class="btn btn-outline-secondary" id="announcementToggle" type="button" style="min-width:90px"></button>
       </div>
-      <div class="form-text">Type a message, click <strong>Show</strong> to publish. Saves with <strong>Save to GitHub</strong>.</div>
+      <div class="form-text">Type a message, click <strong>Show</strong> to publish. Saves with <strong>Save button</strong>.</div>
     </div>
   </div>
 
@@ -128,7 +128,7 @@
   </button>
   <div id="saveStatus"></div>
   <button class="btn btn-danger" id="saveBtn">
-    <i class="bi bi-cloud-upload"></i> Save to GitHub
+    <i class="bi bi-cloud-upload"></i> Save
   </button>
 </div>
 
@@ -565,7 +565,7 @@
       }
     }
 
-    status.innerHTML = `<span class="text-success"><i class="bi bi-check-circle"></i> ${files.length} photo(s) uploaded — click <strong>Save to GitHub</strong> to publish.</span>`;
+    status.innerHTML = `<span class="text-success"><i class="bi bi-check-circle"></i> ${files.length} photo(s) uploaded — click <strong>Save</strong> to publish.</span>`;
     btn.disabled = false;
     this.value   = '';
     renderGalleryContent();
