@@ -266,7 +266,8 @@
   }
 
   async function loadFile(path) {
-    const res = await ghFetch(path);
+    // Append a timestamp to prevent the browser returning a stale cached SHA
+    const res = await ghFetch(path + '?_=' + Date.now());
     if (!res.ok) {
       const b = await res.json().catch(() => ({}));
       throw new Error(b.message || res.statusText);
@@ -387,10 +388,13 @@
       menuSha    = freshMenu.sha;
       gallerySha = freshGallery.sha;
 
-      await Promise.all([
+      const [newMenuSha, newGallerySha] = await Promise.all([
         saveFile('menu.json',    menuSha,    menuData,    'Update menu via admin panel'),
         saveFile('gallery.json', gallerySha, galleryData, 'Update gallery via admin panel')
       ]);
+      // Keep SHAs current so a second save in the same session doesn't need a re-fetch
+      if (newMenuSha)    menuSha    = newMenuSha;
+      if (newGallerySha) gallerySha = newGallerySha;
 
       status.innerHTML = '<span class="text-success"><i class="bi bi-check-circle"></i> Saved! Site updates in ~60 s.</span>';
     } catch (err) {
