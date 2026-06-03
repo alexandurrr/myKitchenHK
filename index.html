@@ -42,8 +42,8 @@
     <!-- Google Fonts — loaded async to avoid render-blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"></noscript>
 
     <!-- Preload hero (LCP element) -->
     <link rel="preload" as="image" href="assets/img/hero.webp" type="image/webp" fetchpriority="high">
@@ -62,7 +62,7 @@
     <link href="assets/css/main.css" rel="stylesheet">
 </head>
 
-<body style="background-color: #800000">
+<body>
 
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
@@ -130,22 +130,17 @@
 </div>
 
 <!-- ======= Hero Section ======= -->
-<section id="hero" class="hero d-flex align-items-center section-bg">
+<section id="hero" class="hero d-flex align-items-center" style="background-image: url('assets/img/hero.webp')">
+    <div class="hero-overlay"></div>
     <div class="container">
-        <div class="row justify-content-between gy-5">
-            <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-                <h2 data-aos="fade-up">Halal Tibetan Food in Hong Kong<br>Fresh &amp; Cooked to Order</h2>
-                <p data-aos="fade-up" data-aos-delay="100">Experience the Flavors of Tibet: Certified Halal Food with Authentic Handmade Momo and Cooked-to-Order Delights Served Fresh!</p>
-                <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-                    <a href="#book-a-table" class="btn-book-a-table">Book</a>
-                    <a href="https://youtu.be/VDVDfW9w7pA" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span style="color: #006b6b">Watch Video</span></a>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-7 text-center">
+                <h2 data-aos="fade-up">Halal Tibetan Food<br><span>in Hong Kong</span></h2>
+                <p data-aos="fade-up" data-aos-delay="100">Certified Halal &middot; Handmade Momos &middot; Cooked Fresh to Order &middot; Open 7 Days</p>
+                <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap" data-aos="fade-up" data-aos-delay="200">
+                    <a href="#book-a-table" class="btn-book-a-table">Order Now</a>
+                    <a href="https://youtu.be/VDVDfW9w7pA" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
                 </div>
-            </div>
-            <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-                <picture>
-                    <source srcset="assets/img/hero.webp" type="image/webp">
-                    <img src="assets/img/hero.jpg" class="img-fluid" alt="Tibetan chicken momo dumplings with a spicy red sauce, served at My Kitchen HK halal restaurant, Jordan, Hong Kong." fetchpriority="high">
-                </picture>
             </div>
         </div>
     </div>
@@ -815,7 +810,7 @@
                         <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
                             <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                                 <i class="bi bi-patch-check"></i>
-                                <h4 style="color: #008080">Certified Halal</h4>
+                                <h4>Certified Halal</h4>
                                 <p>Every ingredient, every dish — halal certified. Our entire kitchen operates under halal guidelines, so our community can eat with complete confidence.</p>
                             </div>
                         </div><!-- End Icon Box -->
@@ -823,7 +818,7 @@
                         <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
                             <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                                 <i class="bi bi-compass"></i>
-                                <h4 style="color: #008080">Authentic Tibetan Recipes</h4>
+                                <h4>Authentic Tibetan Recipes</h4>
                                 <p>From hand-folded momos to slow-simmered thukpa — our menu is rooted in Tibetan culinary tradition, not adaptations.</p>
                             </div>
                         </div><!-- End Icon Box -->
@@ -831,7 +826,7 @@
                         <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
                             <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                                 <i class="bi bi-cup-hot"></i>
-                                <h4 style="color: #008080">Cooked Fresh to Order</h4>
+                                <h4>Cooked Fresh to Order</h4>
                                 <p>Nothing pre-made, nothing reheated. Every momo is folded when you order. That is the My Kitchen promise.</p>
                             </div>
                         </div><!-- End Icon Box -->
@@ -904,7 +899,7 @@
                         <i class="icon bi bi-clock flex-shrink-0"></i>
                         <div>
                             <h3>Opening Hours</h3>
-                            <div id="opening-hours-contact" style="color: var(--color-primary);">Open from 8:30 AM: 7 Days a Week
+                            <div id="opening-hours-contact">Open from 8:30 AM: 7 Days a Week
                             </div>
                         </div>
                     </div>
