@@ -738,7 +738,7 @@
                     var embed  = document.getElementById('ig-embed');
                     function loadIg() {
                         if (!facade || !embed) return;
-                        embed.src = 'https://www.instagram.com/reel/Cp1HhVhBkNt/embed/captioned/';
+                        embed.src = window._igReelUrl || 'https://www.instagram.com/reel/Cp1HhVhBkNt/embed/captioned/';
                         facade.style.display = 'none';
                         embed.style.display  = 'block';
                     }
@@ -902,7 +902,7 @@
                         <i class="icon bi bi-share flex-shrink-0"></i>
                         <div>
                             <h3>Opening Hours</h3>
-                            <div style="color: var(--color-primary);"><strong>Open from 8:30 AM:</strong> 7 Days a Week
+                            <div id="opening-hours-contact" style="color: var(--color-primary);">Open from 8:30 AM: 7 Days a Week
                             </div>
                         </div>
                     </div>
@@ -946,7 +946,7 @@
                 <div>
                     <h4>Opening Hours</h4>
                     <p>
-                        <strong>Open from 8:30 AM: 7 Days a Week</strong><br>
+                        <span id="opening-hours-footer">Open from 8:30 AM: 7 Days a Week</span><br>
                     </p>
                 </div>
             </div>
@@ -965,7 +965,7 @@
 
     <div class="container">
         <div class="copyright">
-            &copy; Copyright <strong><span>My Kitchen</span></strong>. All Rights Reserved
+            &copy; <span id="footer-year"></span> <strong><span>My Kitchen</span></strong>. All Rights Reserved
         </div>
     </div>
 
@@ -1052,6 +1052,10 @@
 (function () {
   var IDS = ['menu-main-items', 'menu-drinks-items'];
 
+  // Set copyright year immediately — doesn't need a fetch
+  var yr = document.getElementById('footer-year');
+  if (yr) yr.textContent = new Date().getFullYear();
+
   // Hide containers immediately so hardcoded items never flash
   IDS.forEach(function (id) {
     var el = document.getElementById(id);
@@ -1088,6 +1092,18 @@
       });
       if (typeof GLightbox === 'function') GLightbox({ selector: '.glightbox' });
       IDS.forEach(show);
+
+      // Opening hours — update contact section and footer
+      var openingHours = (data.openingHours || '').trim();
+      if (openingHours) {
+        var ohContact = document.getElementById('opening-hours-contact');
+        var ohFooter  = document.getElementById('opening-hours-footer');
+        if (ohContact) ohContact.textContent = openingHours;
+        if (ohFooter)  ohFooter.textContent  = openingHours;
+      }
+
+      // Instagram reel URL — expose for the facade click handler
+      if (data.instagramReelUrl) window._igReelUrl = data.instagramReelUrl;
 
       // Announcement banner — only show if enabled AND non-empty
       var ann = (data.announcement || '').trim();

@@ -104,6 +104,28 @@
         <button class="btn btn-outline-secondary" id="announcementToggle" type="button" style="min-width:90px"></button>
       </div>
       <div class="form-text">Type a message, click <strong>Show</strong> to publish. Saves with <strong>Save button</strong>.</div>
+      <div id="announcementPreview" class="mt-2 rounded px-3 py-2" style="display:none; background:#c0392b; color:#fff; font-size:.9rem; font-weight:500; word-break:break-word;"></div>
+    </div>
+  </div>
+
+  <!-- Site Settings -->
+  <div id="settingsSection" class="card mb-4 shadow-sm border-0" style="display:none">
+    <div class="card-body">
+      <label class="form-label fw-semibold mb-2">
+        <i class="bi bi-gear text-secondary"></i> Site Settings
+      </label>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label small mb-1">Opening Hours</label>
+          <input class="form-control form-control-sm" id="openingHoursInput" placeholder="Open from 8:30 AM: 7 Days a Week">
+          <div class="form-text">Shown in the contact section and footer.</div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label small mb-1">Instagram Reel Embed URL</label>
+          <input class="form-control form-control-sm font-monospace" id="instagramReelInput" placeholder="https://www.instagram.com/reel/…/embed/captioned/">
+          <div class="form-text">Full embed URL for the reel on the homepage.</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -322,6 +344,7 @@
 
       document.getElementById('authSection').style.display        = 'none';
       document.getElementById('announcementSection').style.display = '';
+      document.getElementById('settingsSection').style.display    = '';
       document.getElementById('editorSection').style.display      = '';
       document.getElementById('stickyBar').style.display          = '';
       document.getElementById('logoutBtn').style.display          = '';
@@ -336,6 +359,7 @@
     pat = ''; menuData = null; menuSha = null; galleryData = null; gallerySha = null;
     document.getElementById('authSection').style.display        = '';
     document.getElementById('announcementSection').style.display = 'none';
+    document.getElementById('settingsSection').style.display    = 'none';
     document.getElementById('editorSection').style.display      = 'none';
     document.getElementById('stickyBar').style.display          = 'none';
     document.getElementById('logoutBtn').style.display          = 'none';
@@ -385,15 +409,39 @@
 
   document.getElementById('announcementInput').addEventListener('input', function () {
     menuData.announcement = this.value;
+    const preview = document.getElementById('announcementPreview');
+    if (preview) {
+      preview.textContent = this.value.trim();
+      preview.style.display = this.value.trim() ? '' : 'none';
+    }
   });
 
   function syncAnnouncementUI() {
     const enabled = !!menuData.announcementEnabled;
-    document.getElementById('announcementInput').value  = menuData.announcement || '';
-    document.getElementById('announcementToggle').textContent = enabled ? 'Hide' : 'Show';
-    document.getElementById('announcementToggle').className   = enabled
+    const text    = menuData.announcement || '';
+    document.getElementById('announcementInput').value            = text;
+    document.getElementById('announcementToggle').textContent     = enabled ? 'Hide' : 'Show';
+    document.getElementById('announcementToggle').className       = enabled
       ? 'btn btn-danger' : 'btn btn-outline-secondary';
+    const preview = document.getElementById('announcementPreview');
+    if (preview) {
+      preview.textContent   = text.trim();
+      preview.style.display = text.trim() ? '' : 'none';
+    }
   }
+
+  function syncSettingsUI() {
+    document.getElementById('openingHoursInput').value  = menuData.openingHours  || '';
+    document.getElementById('instagramReelInput').value = menuData.instagramReelUrl || '';
+  }
+
+  document.getElementById('openingHoursInput').addEventListener('input', function () {
+    menuData.openingHours = this.value;
+  });
+
+  document.getElementById('instagramReelInput').addEventListener('input', function () {
+    menuData.instagramReelUrl = this.value;
+  });
 
   // ── Tab rendering ────────────────────────────────────────────────────────────
 
@@ -401,6 +449,7 @@
     renderPills();
     renderActiveTab();
     syncAnnouncementUI();
+    syncSettingsUI();
   }
 
   function renderPills() {

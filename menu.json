@@ -1,6 +1,8 @@
 {
   "announcement": "",
   "announcementEnabled": false,
+  "openingHours": "Open from 8:30 AM: 7 Days a Week",
+  "instagramReelUrl": "https://www.instagram.com/reel/Cp1HhVhBkNt/embed/captioned/",
   "tabs": [
     {
       "id": "menu-main",
