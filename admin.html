@@ -225,7 +225,7 @@
 
   async function fetchFromGitHub() {
     const res = await fetch(API, {
-      headers: { 'Authorization': `Bearer ${pat}`, 'Cache-Control': 'no-cache' }
+      headers: { 'Authorization': `Bearer ${pat}` }
     });
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
