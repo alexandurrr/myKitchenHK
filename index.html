@@ -178,6 +178,14 @@
 
             </ul>
 
+            <div id="menu-filter-bar" class="text-center mt-3 mb-3" data-aos="fade-up" data-aos-delay="250">
+                <div class="d-inline-flex gap-2 flex-wrap justify-content-center">
+                    <button class="btn btn-menu-filter active" data-filter="all">All</button>
+                    <button class="btn btn-menu-filter" data-filter="veg"><i class="bi bi-leaf"></i> Vegetarian</button>
+                    <button class="btn btn-menu-filter" data-filter="momo">Momo</button>
+                </div>
+            </div>
+
             <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
 
                 <div class="tab-pane fade active show" id="menu-main">
@@ -796,11 +804,8 @@
 
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="why-box">
-                        <h3>Why Choose My Kitchen?</h3>
-                        <p>
-                            At our Tibetan halal fresh food restaurant,
-                            we take great pride in serving only the highest quality ingredients to our customers.
-                        </p>
+                        <h3>Our Story</h3>
+                        <p>My Kitchen grew out of a passion for authentic Tibetan home cooking. We brought the flavours of Tibet to Jordan, Kowloon — entirely halal certified and cooked fresh for every customer.</p>
                     </div>
                 </div><!-- End Why Box -->
 
@@ -809,28 +814,25 @@
 
                         <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
                             <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                                <i class="bi bi-cup-hot"></i>
-                                <h4 style="color: #008080">Fresh food, prepared on-site</h4>
-                                <p>All of our dishes are prepared on-site,
-                                    so you can be sure that everything is made with care and attention to detail.</p>
+                                <i class="bi bi-patch-check"></i>
+                                <h4 style="color: #008080">Certified Halal</h4>
+                                <p>Every ingredient, every dish — halal certified. Our entire kitchen operates under halal guidelines, so our community can eat with complete confidence.</p>
                             </div>
                         </div><!-- End Icon Box -->
 
                         <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
                             <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                                 <i class="bi bi-compass"></i>
-                                <h4 style="color: #008080">Authentic Tibetan Cuisine</h4>
-                                <p>If you're looking for a unique and delicious dining experience,
-                                    you can't go wrong with the Tibetan cuisine we offer.</p>
+                                <h4 style="color: #008080">Authentic Tibetan Recipes</h4>
+                                <p>From hand-folded momos to slow-simmered thukpa — our menu is rooted in Tibetan culinary tradition, not adaptations.</p>
                             </div>
                         </div><!-- End Icon Box -->
 
                         <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
                             <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                                <i class="bi bi-emoji-smile"></i>
-                                <h4 style="color: #008080">Exceptional Customer Service</h4>
-                                <p>Customer service is our priority.
-                                    Our friendly staff is always ready to greet you with a smile and cater to your needs.</p>
+                                <i class="bi bi-cup-hot"></i>
+                                <h4 style="color: #008080">Cooked Fresh to Order</h4>
+                                <p>Nothing pre-made, nothing reheated. Every momo is folded when you order. That is the My Kitchen promise.</p>
                             </div>
                         </div><!-- End Icon Box -->
 
@@ -899,11 +901,22 @@
 
                 <div class="col-md-6">
                     <div class="info-item  d-flex align-items-center">
-                        <i class="icon bi bi-share flex-shrink-0"></i>
+                        <i class="icon bi bi-clock flex-shrink-0"></i>
                         <div>
                             <h3>Opening Hours</h3>
                             <div id="opening-hours-contact" style="color: var(--color-primary);">Open from 8:30 AM: 7 Days a Week
                             </div>
+                        </div>
+                    </div>
+                </div><!-- End Info Item -->
+
+                <div class="col-md-6">
+                    <div class="info-item d-flex align-items-center">
+                        <i class="icon bi bi-signpost-2 flex-shrink-0"></i>
+                        <div>
+                            <h3>Getting Here</h3>
+                            <p><strong>MTR:</strong> Jordan Station (Exit D), approx. 5 min walk</p>
+                            <p><strong>Bus:</strong> 1, 1A, 2, 6 (Jordan Road stops)</p>
                         </div>
                     </div>
                 </div><!-- End Info Item -->
@@ -1067,6 +1080,15 @@
     if (el) el.style.opacity = '1';
   }
 
+  function categorizeItem(item) {
+    var cats = ['all'];
+    var ing  = (item.ingredients || '').toLowerCase();
+    var name = (item.name || '').toLowerCase();
+    if (!/chicken|beef|buff/.test(ing)) cats.push('veg');
+    if (/momo/.test(name)) cats.push('momo');
+    return cats.join(' ');
+  }
+
   function renderItems(items) {
     return items.map(function (item) {
       var price = (item.price || '').split('\n').join('<br>');
@@ -1074,7 +1096,7 @@
         ? '<picture><source srcset="' + item.imageWebp + '" type="image/webp">'
           + '<img src="' + item.image + '" class="menu-img img-fluid" loading="lazy" alt="' + (item.alt || '') + '"></picture>'
         : '<img src="' + item.image + '" class="menu-img img-fluid" loading="lazy" alt="' + (item.alt || '') + '">';
-      return '<div class="col-lg-4 menu-item">'
+      return '<div class="col-lg-4 menu-item" data-filter="' + categorizeItem(item) + '">'
         + '<a href="' + item.image + '" class="glightbox">' + img + '</a>'
         + '<h4>' + item.name + '</h4>'
         + '<p class="ingredients">' + (item.ingredients || '-') + '</p>'
@@ -1167,13 +1189,38 @@
   document.querySelectorAll('[data-bs-toggle="tab"]').forEach(function (btn) {
     btn.addEventListener('shown.bs.tab', function () {
       window.dispatchEvent(new Event('resize'));
-      // Also ensure container opacity is visible in case of edge cases
       var target = btn.getAttribute('data-bs-target');
       var pane = target ? document.querySelector(target) : null;
       if (pane) {
         var row = pane.querySelector('.row.g-4');
         if (row) row.style.opacity = '1';
       }
+      // Show filter bar on Menu tab only; reset to All on tab switch
+      var filterBar = document.getElementById('menu-filter-bar');
+      if (filterBar) filterBar.style.display = target === '#menu-main' ? '' : 'none';
+      document.querySelectorAll('.btn-menu-filter').forEach(function(b) { b.classList.remove('active'); });
+      var allBtn = document.querySelector('.btn-menu-filter[data-filter="all"]');
+      if (allBtn) allBtn.classList.add('active');
+      document.querySelectorAll('#menu-main-items .menu-item').forEach(function(item) {
+        item.style.display = '';
+      });
+    });
+  });
+
+  // Menu filter
+  document.querySelectorAll('.btn-menu-filter').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.btn-menu-filter').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      var filter = this.dataset.filter;
+      document.querySelectorAll('#menu-main-items .menu-item').forEach(function(item) {
+        if (filter === 'all') {
+          item.style.display = '';
+        } else {
+          var cats = (item.dataset.filter || '').split(' ');
+          item.style.display = cats.indexOf(filter) !== -1 ? '' : 'none';
+        }
+      });
     });
   });
 })();

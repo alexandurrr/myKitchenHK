@@ -878,6 +878,33 @@ section {
   border: 0;
 }
 
+/* ── Filter bar ──────────────────────────────────────────── */
+.btn-menu-filter {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 18px;
+  border-radius: 30px;
+  border: 1px solid rgba(245, 245, 220, 0.25);
+  color: rgba(245, 245, 220, 0.7);
+  background: transparent;
+  transition: all 0.2s ease;
+  font-family: var(--font-secondary);
+  cursor: pointer;
+}
+
+.btn-menu-filter:hover {
+  border-color: rgba(0, 128, 128, 0.6);
+  color: var(--color-primary);
+  background: rgba(0, 128, 128, 0.08);
+}
+
+.btn-menu-filter.active,
+.btn-menu-filter.active:hover {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
 /* ── Card grid ───────────────────────────────────────────── */
 .menu .tab-content .menu-item {
   -moz-text-align-last: left;
