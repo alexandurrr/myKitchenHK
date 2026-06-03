@@ -8,8 +8,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <style>
-    body { background: #f5f5f5; }
+    body { background: #f5f5f5; padding-bottom: 72px; }
     .navbar-brand { font-weight: 700; }
+
     .item-card {
       background: white;
       border: 1px solid #dee2e6;
@@ -21,16 +22,13 @@
       gap: 14px;
     }
     .item-thumb {
-      width: 64px;
-      height: 64px;
+      width: 64px; height: 64px;
       object-fit: cover;
       border-radius: 6px;
       flex-shrink: 0;
-      background: #eee;
     }
     .item-thumb-placeholder {
-      width: 64px;
-      height: 64px;
+      width: 64px; height: 64px;
       border-radius: 6px;
       flex-shrink: 0;
       background: #e9ecef;
@@ -42,14 +40,35 @@
     }
     .item-info { flex: 1; min-width: 0; }
     .item-info strong { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .item-info .price-preview { font-size: 0.82rem; color: #495057; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .item-info .ingredients-preview { font-size: 0.78rem; color: #868e96; }
+    .item-info .price-preview { font-size: .82rem; color: #495057; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .item-info .ingredients-preview { font-size: .78rem; color: #868e96; }
     .move-col { display: flex; flex-direction: column; gap: 2px; }
     .move-col .btn { padding: 2px 7px; font-size: 12px; }
     .action-col { display: flex; gap: 6px; flex-shrink: 0; }
-    #saveStatus { min-height: 1.4em; }
+
+    /* Sticky bottom bar */
+    .sticky-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: white;
+      border-top: 1px solid #dee2e6;
+      box-shadow: 0 -2px 12px rgba(0,0,0,.08);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      z-index: 1040;
+    }
+    .sticky-bar #saveStatus { font-size: .85rem; flex: 1; text-align: right; }
+
     .nav-pills .nav-link.active { background-color: #dc3545; }
     .nav-pills .nav-link { color: #dc3545; }
+
+    /* Image upload preview */
+    #imagePreviewWrap { display: none; }
+    #imagePreview { max-height: 120px; border-radius: 6px; border: 1px solid #dee2e6; }
+    .upload-progress { font-size: .82rem; }
   </style>
 </head>
 <body>
@@ -79,31 +98,28 @@
     </div>
   </div>
 
-  <!-- Editor (hidden until connected) -->
+  <!-- Editor -->
   <div id="editorSection" style="display:none">
-
     <ul class="nav nav-pills mb-3" id="tabPills"></ul>
-
     <div id="tabContent"></div>
-
-    <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-2">
-      <button class="btn btn-outline-secondary" id="addItemBtn">
-        <i class="bi bi-plus-circle"></i> Add Item
-      </button>
-      <div class="d-flex align-items-center gap-3">
-        <div id="saveStatus" class="small text-end"></div>
-        <button class="btn btn-danger" id="saveBtn">
-          <i class="bi bi-cloud-upload"></i> Save to GitHub
-        </button>
-      </div>
-    </div>
-
   </div>
+
+</div>
+
+<!-- Sticky bottom bar (shown when connected) -->
+<div class="sticky-bar" id="stickyBar" style="display:none">
+  <button class="btn btn-outline-secondary" id="addItemBtn">
+    <i class="bi bi-plus-circle"></i> Add Item
+  </button>
+  <div id="saveStatus"></div>
+  <button class="btn btn-danger" id="saveBtn">
+    <i class="bi bi-cloud-upload"></i> Save to GitHub
+  </button>
 </div>
 
 <!-- Add / Edit modal -->
 <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modalTitle">Add Item</h5>
@@ -112,40 +128,54 @@
       <div class="modal-body">
         <form id="itemForm" novalidate>
 
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Category</label>
-            <select class="form-select" id="itemCategory"></select>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Category</label>
+              <select class="form-select" id="itemCategory"></select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Name <span class="text-danger">*</span></label>
+              <input class="form-control" id="itemName" required>
+            </div>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Name <span class="text-danger">*</span></label>
-            <input class="form-control" id="itemName" required>
-          </div>
-
-          <div class="mb-3">
+          <div class="mt-3">
             <label class="form-label fw-semibold">Ingredients</label>
             <input class="form-control" id="itemIngredients" placeholder="gluten, chicken">
           </div>
 
-          <div class="mb-3">
+          <div class="mt-3">
             <label class="form-label fw-semibold">Price</label>
             <textarea class="form-control font-monospace" id="itemPrice" rows="4"
               placeholder="$50.00&#10;$60.00 Beef/Buff&#10;$55.00 Chicken"></textarea>
-            <div class="form-text">One price variant per line for multi-price items.</div>
+            <div class="form-text">One price variant per line.</div>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Image path</label>
+          <hr class="my-3">
+
+          <!-- Image upload -->
+          <div class="mt-3">
+            <label class="form-label fw-semibold">Photo</label>
+            <input type="file" class="form-control" id="itemImageFile" accept="image/*">
+            <div class="form-text mb-2">Picking a file uploads it to the repo when you save. Max ~20 MB.</div>
+            <div id="imagePreviewWrap" class="mb-2">
+              <img id="imagePreview" src="" alt="Preview">
+            </div>
+            <div id="uploadStatus" class="upload-progress text-secondary"></div>
+          </div>
+
+          <div class="mt-3">
+            <label class="form-label fw-semibold">Image path in repo</label>
             <input class="form-control font-monospace" id="itemImage" placeholder="assets/img/menu/filename.jpg">
-            <div class="form-text">Path relative to the site root. Upload the file to the repo first.</div>
+            <div class="form-text">Auto-filled when you pick a file above. Edit to use an existing image.</div>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label fw-semibold">WebP image path <span class="text-muted fw-normal">(optional)</span></label>
+          <div class="mt-3">
+            <label class="form-label fw-semibold">WebP path <span class="text-muted fw-normal small">(optional)</span></label>
             <input class="form-control font-monospace" id="itemImageWebp" placeholder="assets/img/menu/filename.webp">
           </div>
 
-          <div class="mb-3">
+          <div class="mt-3">
             <label class="form-label fw-semibold">Image alt text</label>
             <input class="form-control" id="itemAlt" placeholder="Describe the dish for accessibility">
           </div>
@@ -174,12 +204,12 @@
   let pat      = localStorage.getItem('gh_pat') || '';
   let menuData = null;
   let fileSha  = null;
-  let editing  = null; // { tabId, index } when editing an existing item
+  let editing  = null;
   let activeTab = null;
 
   const itemModal = new bootstrap.Modal(document.getElementById('itemModal'));
 
-  // ── Auth ────────────────────────────────────────────────────────────────────
+  // ── Auth ─────────────────────────────────────────────────────────────────────
 
   document.getElementById('connectBtn').addEventListener('click', connect);
   document.getElementById('patInput').addEventListener('keydown', e => { if (e.key === 'Enter') connect(); });
@@ -188,17 +218,18 @@
   async function connect() {
     const typed = document.getElementById('patInput').value.trim();
     if (typed) { pat = typed; localStorage.setItem('gh_pat', pat); }
-    if (!pat) { return setAuthStatus('Please enter a GitHub token.', 'danger'); }
+    if (!pat) return setAuthStatus('Please enter a GitHub token.', 'danger');
 
     setAuthStatus('<i class="bi bi-arrow-repeat"></i> Connecting…', 'secondary');
     try {
-      const result = await fetchFromGitHub();
+      const result = await fetchMenuFromGitHub();
       menuData  = result.content;
       fileSha   = result.sha;
       activeTab = menuData.tabs[0]?.id || null;
 
-      document.getElementById('authSection').style.display  = 'none';
+      document.getElementById('authSection').style.display   = 'none';
       document.getElementById('editorSection').style.display = '';
+      document.getElementById('stickyBar').style.display     = '';
       document.getElementById('logoutBtn').style.display     = '';
       renderEditor();
     } catch (err) {
@@ -211,6 +242,7 @@
     pat = ''; menuData = null; fileSha = null;
     document.getElementById('authSection').style.display   = '';
     document.getElementById('editorSection').style.display = 'none';
+    document.getElementById('stickyBar').style.display     = 'none';
     document.getElementById('logoutBtn').style.display     = 'none';
     document.getElementById('patInput').value              = '';
     setAuthStatus('', '');
@@ -223,10 +255,16 @@
 
   // ── GitHub API ───────────────────────────────────────────────────────────────
 
-  async function fetchFromGitHub() {
-    const res = await fetch(API, {
-      headers: { 'Authorization': `Bearer ${pat}` }
+  async function githubFetch(path, opts = {}) {
+    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, {
+      ...opts,
+      headers: { 'Authorization': `Bearer ${pat}`, ...opts.headers }
     });
+    return res;
+  }
+
+  async function fetchMenuFromGitHub() {
+    const res = await githubFetch(FILE);
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
       throw new Error(body.message || res.statusText);
@@ -236,6 +274,42 @@
     return { content, sha: file.sha };
   }
 
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload  = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function uploadImage(file, repoPath) {
+    const base64 = await fileToBase64(file);
+
+    // Get SHA if file already exists (needed for update)
+    let sha = null;
+    const check = await githubFetch(repoPath);
+    if (check.ok) sha = (await check.json()).sha;
+
+    const body = {
+      message: `Upload image: ${repoPath.split('/').pop()}`,
+      content: base64,
+      branch:  BRANCH,
+      ...(sha ? { sha } : {})
+    };
+
+    const res = await githubFetch(repoPath, {
+      method:  'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(body)
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error('Image upload failed: ' + (err.message || res.statusText));
+    }
+  }
+
   async function saveToGitHub() {
     const btn    = document.getElementById('saveBtn');
     const status = document.getElementById('saveStatus');
@@ -243,19 +317,15 @@
     status.innerHTML = '<span class="text-secondary"><i class="bi bi-arrow-repeat"></i> Saving…</span>';
 
     try {
-      // Refresh SHA to avoid conflicts
-      const fresh = await fetchFromGitHub();
+      const fresh = await fetchMenuFromGitHub();
       fileSha = fresh.sha;
 
       const json    = JSON.stringify(menuData, null, 2);
       const encoded = btoa(unescape(encodeURIComponent(json)));
 
-      const res = await fetch(API, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${pat}`,
-          'Content-Type':  'application/json'
-        },
+      const res = await githubFetch(FILE, {
+        method:  'PUT',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: 'Update menu via admin panel',
           content: encoded,
@@ -271,7 +341,7 @@
 
       const result = await res.json();
       fileSha = result.content.sha;
-      status.innerHTML = '<span class="text-success"><i class="bi bi-check-circle"></i> Saved! GitHub Pages updates in ~60 seconds.</span>';
+      status.innerHTML = '<span class="text-success"><i class="bi bi-check-circle"></i> Saved! Site updates in ~60 s.</span>';
     } catch (err) {
       status.innerHTML = `<span class="text-danger"><i class="bi bi-x-circle"></i> ${err.message}</span>`;
     } finally {
@@ -281,7 +351,7 @@
 
   document.getElementById('saveBtn').addEventListener('click', saveToGitHub);
 
-  // ── Editor rendering ─────────────────────────────────────────────────────────
+  // ── Editor ───────────────────────────────────────────────────────────────────
 
   function renderEditor() {
     renderPills();
@@ -296,13 +366,13 @@
           ${tab.label}
         </button>
       </li>`).join('');
-    pills.querySelectorAll('button').forEach(btn => {
-      btn.addEventListener('click', () => { activeTab = btn.dataset.tab; renderEditor(); });
-    });
+    pills.querySelectorAll('button').forEach(btn =>
+      btn.addEventListener('click', () => { activeTab = btn.dataset.tab; renderEditor(); })
+    );
   }
 
   function renderActiveTab() {
-    const tab = menuData.tabs.find(t => t.id === activeTab);
+    const tab     = menuData.tabs.find(t => t.id === activeTab);
     const content = document.getElementById('tabContent');
     if (!tab) { content.innerHTML = ''; return; }
 
@@ -314,7 +384,7 @@
     content.innerHTML = tab.items.map((item, i) => `
       <div class="item-card">
         ${item.image
-          ? `<img src="${item.image}" class="item-thumb" alt="${item.alt || ''}" onerror="this.style.display='none'">`
+          ? `<img src="${item.image}" class="item-thumb" alt="${escHtml(item.alt || '')}" onerror="this.style.display='none'">`
           : `<div class="item-thumb-placeholder"><i class="bi bi-image"></i></div>`}
         <div class="item-info">
           <strong>${escHtml(item.name)}</strong>
@@ -327,31 +397,56 @@
         </div>
         <div class="action-col">
           <button class="btn btn-sm btn-outline-primary edit-btn" data-tab="${tab.id}" data-i="${i}">Edit</button>
-          <button class="btn btn-sm btn-outline-danger del-btn" data-tab="${tab.id}" data-i="${i}">Delete</button>
+          <button class="btn btn-sm btn-outline-danger del-btn"  data-tab="${tab.id}" data-i="${i}">Delete</button>
         </div>
       </div>`).join('');
 
     content.querySelectorAll('.edit-btn').forEach(b => b.addEventListener('click', () => openEdit(b.dataset.tab, +b.dataset.i)));
-    content.querySelectorAll('.del-btn').forEach(b => b.addEventListener('click', () => deleteItem(b.dataset.tab, +b.dataset.i)));
-    content.querySelectorAll('.move-up').forEach(b => b.addEventListener('click', () => moveItem(b.dataset.tab, +b.dataset.i, -1)));
-    content.querySelectorAll('.move-dn').forEach(b => b.addEventListener('click', () => moveItem(b.dataset.tab, +b.dataset.i, +1)));
+    content.querySelectorAll('.del-btn').forEach(b  => b.addEventListener('click', () => deleteItem(b.dataset.tab, +b.dataset.i)));
+    content.querySelectorAll('.move-up').forEach(b  => b.addEventListener('click', () => moveItem(b.dataset.tab, +b.dataset.i, -1)));
+    content.querySelectorAll('.move-dn').forEach(b  => b.addEventListener('click', () => moveItem(b.dataset.tab, +b.dataset.i, +1)));
   }
 
   function escHtml(str) {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
-  // ── Item actions ─────────────────────────────────────────────────────────────
+  // ── Modal ────────────────────────────────────────────────────────────────────
+
+  function resetModal() {
+    document.getElementById('itemForm').reset();
+    document.getElementById('imagePreviewWrap').style.display = 'none';
+    document.getElementById('imagePreview').src               = '';
+    document.getElementById('uploadStatus').textContent       = '';
+    document.getElementById('saveItemBtn').disabled           = false;
+    document.getElementById('saveItemBtn').textContent        = 'Save Item';
+  }
 
   function populateCategorySelect(selectedTabId) {
-    const sel = document.getElementById('itemCategory');
-    sel.innerHTML = menuData.tabs.map(t => `<option value="${t.id}" ${t.id === selectedTabId ? 'selected' : ''}>${t.label}</option>`).join('');
+    document.getElementById('itemCategory').innerHTML =
+      menuData.tabs.map(t => `<option value="${t.id}" ${t.id === selectedTabId ? 'selected' : ''}>${t.label}</option>`).join('');
   }
+
+  // Image file picker → preview + auto-fill path
+  document.getElementById('itemImageFile').addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = e => {
+      document.getElementById('imagePreview').src               = e.target.result;
+      document.getElementById('imagePreviewWrap').style.display = '';
+    };
+    reader.readAsDataURL(file);
+
+    const slug = file.name.replace(/\s+/g, '_').toLowerCase();
+    document.getElementById('itemImage').value = `assets/img/menu/${slug}`;
+  });
 
   document.getElementById('addItemBtn').addEventListener('click', () => {
     editing = null;
     document.getElementById('modalTitle').textContent = 'Add Menu Item';
-    document.getElementById('itemForm').reset();
+    resetModal();
     populateCategorySelect(activeTab);
     itemModal.show();
   });
@@ -360,48 +455,77 @@
     editing = { tabId, index };
     const item = menuData.tabs.find(t => t.id === tabId).items[index];
     document.getElementById('modalTitle').textContent = 'Edit Menu Item';
+    resetModal();
     populateCategorySelect(tabId);
-    document.getElementById('itemName').value       = item.name        || '';
-    document.getElementById('itemIngredients').value= item.ingredients || '';
-    document.getElementById('itemPrice').value      = item.price       || '';
-    document.getElementById('itemImage').value      = item.image       || '';
-    document.getElementById('itemImageWebp').value  = item.imageWebp   || '';
-    document.getElementById('itemAlt').value        = item.alt         || '';
+    document.getElementById('itemName').value        = item.name        || '';
+    document.getElementById('itemIngredients').value = item.ingredients || '';
+    document.getElementById('itemPrice').value       = item.price       || '';
+    document.getElementById('itemImage').value       = item.image       || '';
+    document.getElementById('itemImageWebp').value   = item.imageWebp   || '';
+    document.getElementById('itemAlt').value         = item.alt         || '';
+    if (item.image) {
+      document.getElementById('imagePreview').src               = item.image;
+      document.getElementById('imagePreviewWrap').style.display = '';
+    }
     itemModal.show();
   }
 
-  document.getElementById('saveItemBtn').addEventListener('click', () => {
+  document.getElementById('saveItemBtn').addEventListener('click', async () => {
     const name = document.getElementById('itemName').value.trim();
     if (!name) { document.getElementById('itemName').focus(); return; }
 
-    const targetTabId = document.getElementById('itemCategory').value;
-    const item = {
-      name,
-      ingredients: document.getElementById('itemIngredients').value.trim(),
-      price:       document.getElementById('itemPrice').value.trim(),
-      image:       document.getElementById('itemImage').value.trim(),
-      imageWebp:   document.getElementById('itemImageWebp').value.trim() || null,
-      alt:         document.getElementById('itemAlt').value.trim()
-    };
+    const saveItemBtn  = document.getElementById('saveItemBtn');
+    const uploadStatus = document.getElementById('uploadStatus');
+    const fileInput    = document.getElementById('itemImageFile');
+    const imagePath    = document.getElementById('itemImage').value.trim();
 
-    if (editing) {
-      const srcTab = menuData.tabs.find(t => t.id === editing.tabId);
-      if (editing.tabId !== targetTabId) {
-        srcTab.items.splice(editing.index, 1);
+    saveItemBtn.disabled = true;
+
+    try {
+      // Upload image first if one was selected
+      if (fileInput.files[0] && imagePath) {
+        uploadStatus.innerHTML = '<i class="bi bi-arrow-repeat"></i> Uploading image…';
+        saveItemBtn.textContent = 'Uploading…';
+        await uploadImage(fileInput.files[0], imagePath);
+        uploadStatus.innerHTML = '<span class="text-success"><i class="bi bi-check"></i> Image uploaded</span>';
+      }
+
+      const targetTabId = document.getElementById('itemCategory').value;
+      const item = {
+        name,
+        ingredients: document.getElementById('itemIngredients').value.trim(),
+        price:       document.getElementById('itemPrice').value.trim(),
+        image:       imagePath,
+        imageWebp:   document.getElementById('itemImageWebp').value.trim() || null,
+        alt:         document.getElementById('itemAlt').value.trim()
+      };
+
+      if (editing) {
+        const srcTab = menuData.tabs.find(t => t.id === editing.tabId);
+        if (editing.tabId !== targetTabId) {
+          srcTab.items.splice(editing.index, 1);
+          menuData.tabs.find(t => t.id === targetTabId).items.push(item);
+          activeTab = targetTabId;
+        } else {
+          srcTab.items[editing.index] = item;
+        }
+      } else {
         menuData.tabs.find(t => t.id === targetTabId).items.push(item);
         activeTab = targetTabId;
-      } else {
-        srcTab.items[editing.index] = item;
       }
-    } else {
-      menuData.tabs.find(t => t.id === targetTabId).items.push(item);
-      activeTab = targetTabId;
-    }
 
-    itemModal.hide();
-    document.getElementById('saveStatus').innerHTML = '';
-    renderEditor();
+      itemModal.hide();
+      document.getElementById('saveStatus').innerHTML = '';
+      renderEditor();
+    } catch (err) {
+      uploadStatus.innerHTML = `<span class="text-danger"><i class="bi bi-x-circle"></i> ${err.message}</span>`;
+    } finally {
+      saveItemBtn.disabled    = false;
+      saveItemBtn.textContent = 'Save Item';
+    }
   });
+
+  // ── Item actions ─────────────────────────────────────────────────────────────
 
   function deleteItem(tabId, index) {
     const tab  = menuData.tabs.find(t => t.id === tabId);
@@ -420,7 +544,7 @@
     renderEditor();
   }
 
-  // ── Auto-connect if token stored ─────────────────────────────────────────────
+  // ── Auto-connect ─────────────────────────────────────────────────────────────
 
   if (pat) {
     document.getElementById('patInput').value = pat;
