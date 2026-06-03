@@ -229,14 +229,6 @@
       "title": "Drinks",
       "items": [
         {
-          "name": "specia123123",
-          "ingredients": "gluten, cswss",
-          "price": "$555.000\n$20.00 buff",
-          "image": "assets/img/menu/specialmomo.jpg",
-          "imageWebp": null,
-          "alt": "speciality momo1"
-        },
-        {
           "name": "Masala Tea",
           "ingredients": "milk",
           "price": "$10.00",
