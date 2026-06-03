@@ -220,14 +220,6 @@
           "image": "assets/img/menu/dhankdu.jpg",
           "imageWebp": "assets/img/menu/dhankdu.webp",
           "alt": "Tibetan Dhankdu (Cold Thukpa) in a green bowl against a white background."
-        },
-        {
-          "name": "special momo",
-          "ingredients": "gluten, chicken",
-          "price": "$50.000\n$20.00 buff",
-          "image": "assets/img/menu/specialmomo.jpg",
-          "imageWebp": null,
-          "alt": "speciality momo"
         }
       ]
     },
@@ -259,6 +251,14 @@
           "image": "assets/img/menu/lassi.jpg",
           "imageWebp": null,
           "alt": "Cold Lassi drink in a tall glass with a white and teal straw against a white background."
+        },
+        {
+          "name": "specia123123",
+          "ingredients": "gluten, cswss",
+          "price": "$555.000\n$20.00 buff",
+          "image": "assets/img/menu/specialmomo.jpg",
+          "imageWebp": null,
+          "alt": "speciality momo1"
         }
       ]
     }
