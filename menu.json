@@ -1,4 +1,6 @@
 {
+  "announcement": "",
+  "announcementEnabled": false,
   "tabs": [
     {
       "id": "menu-main",

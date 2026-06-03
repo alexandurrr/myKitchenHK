@@ -100,6 +100,22 @@
 
   <!-- Editor -->
   <div id="editorSection" style="display:none">
+
+    <!-- Announcement banner control -->
+    <div class="card mb-4 shadow-sm border-0">
+      <div class="card-body">
+        <label class="form-label fw-semibold mb-1">
+          <i class="bi bi-megaphone text-danger"></i> Announcement Banner
+        </label>
+        <div class="input-group">
+          <input class="form-control" id="announcementInput"
+            placeholder="e.g. Closed this Sunday 8 June. Back Monday!">
+          <button class="btn btn-outline-secondary" id="announcementToggle" type="button" style="min-width:90px"></button>
+        </div>
+        <div class="form-text">Type a message, then click <strong>Show</strong> to display it. Click <strong>Hide</strong> to remove it from the site without deleting the text. Saves with <strong>Save to GitHub</strong>.</div>
+      </div>
+    </div>
+
     <ul class="nav nav-pills mb-3" id="tabPills"></ul>
     <div id="tabContent"></div>
   </div>
@@ -356,6 +372,19 @@
   function renderEditor() {
     renderPills();
     renderActiveTab();
+    renderAnnouncement();
+  }
+
+  function renderAnnouncement() {
+    const input  = document.getElementById('announcementInput');
+    const toggle = document.getElementById('announcementToggle');
+    if (!input || !toggle) return;
+    const enabled = !!(menuData.announcementEnabled);
+    input.value       = menuData.announcement || '';
+    toggle.textContent = enabled ? 'Hide' : 'Show';
+    toggle.className   = enabled
+      ? 'btn btn-danger'
+      : 'btn btn-outline-secondary';
   }
 
   function renderPills() {
@@ -543,6 +572,20 @@
     [items[index], items[dest]] = [items[dest], items[index]];
     renderEditor();
   }
+
+  // ── Announcement toggle ───────────────────────────────────────────────────────
+
+  document.getElementById('announcementToggle').addEventListener('click', () => {
+    const text = document.getElementById('announcementInput').value.trim();
+    menuData.announcement        = text;
+    menuData.announcementEnabled = !menuData.announcementEnabled;
+    document.getElementById('saveStatus').innerHTML = '';
+    renderAnnouncement();
+  });
+
+  document.getElementById('announcementInput').addEventListener('input', function () {
+    menuData.announcement = this.value;
+  });
 
   // ── Auto-connect ─────────────────────────────────────────────────────────────
 
