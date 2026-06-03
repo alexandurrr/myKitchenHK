@@ -99,7 +99,7 @@
                     </a>
                 </li>
                 <li>
-                    <a target="_blank" href="https://wa.me/+85298459097" aria-label="WhatsApp us">
+                    <a target="_blank" href="https://wa.me/85298459097?text=Hi%2C%20I%27d%20like%20to%20place%20an%20order%20%F0%9F%8D%BD%EF%B8%8F" aria-label="WhatsApp us">
                         <picture><source srcset="assets/icons/whatsapp-icon.webp" type="image/webp"><img src="assets/icons/whatsapp-icon.png" alt="" width="32" height="32"></picture>
                     </a>
                 </li>
@@ -111,7 +111,7 @@
             </ul>
         </nav><!-- .navbar -->
         <!--        <a class="btn-book-a-table" href="#book-a-table">Book</a> -->
-        <a target="_blank" href="https://wa.me/+85298459097" aria-label="WhatsApp us">
+        <a target="_blank" href="https://wa.me/85298459097?text=Hi%2C%20I%27d%20like%20to%20place%20an%20order%20%F0%9F%8D%BD%EF%B8%8F" aria-label="WhatsApp us">
             <picture><source srcset="assets/icons/whatsapp-icon.webp" type="image/webp"><img class="mobile-nav-show" src="assets/icons/whatsapp-icon.png" alt="" width="32" height="32"></picture>
         </a>
         <a target="_blank" href="https://www.instagram.com/mykitchenhk/" aria-label="My Kitchen on Instagram">
@@ -747,7 +747,7 @@
                 <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
                     <div class="content ps-0 ps-lg-5">
                         <strong> <p> Call us:                    
-                            <a target="_blank" href="https://wa.me/+85298459097">
+                            <a target="_blank" href="https://wa.me/85298459097?text=Hi%2C%20I%27d%20like%20to%20place%20an%20order%20%F0%9F%8D%BD%EF%B8%8F">
                             <picture><source srcset="assets/icons/whatsapp-icon.webp" type="image/webp"><img style="" src="assets/icons/whatsapp-icon.png" alt="WhatsApp Logo" width="32" height="32"></picture>
                         </a> 
                              Or +852 9845 9097 - To Book in Advance</p></strong>
@@ -1044,6 +1044,19 @@
 <!-- Dynamic menu loader — renders from menu.json; hardcoded items above are a no-JS fallback -->
 <script>
 (function () {
+  var IDS = ['menu-main-items', 'menu-drinks-items'];
+
+  // Hide containers immediately so hardcoded items never flash
+  IDS.forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) { el.style.opacity = '0'; el.style.transition = 'opacity 0.25s'; }
+  });
+
+  function show(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.opacity = '1';
+  }
+
   function renderItems(items) {
     return items.map(function (item) {
       var price = (item.price || '').split('\n').join('<br>');
@@ -1068,8 +1081,12 @@
         if (el) el.innerHTML = renderItems(tab.items);
       });
       if (typeof GLightbox === 'function') GLightbox({ selector: '.glightbox' });
+      IDS.forEach(show);
     })
-    .catch(function () {});
+    .catch(function () {
+      // Fetch failed — reveal hardcoded fallback items
+      IDS.forEach(show);
+    });
 })();
 </script>
 
