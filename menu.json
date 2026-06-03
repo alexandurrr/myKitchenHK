@@ -3,6 +3,11 @@
   "announcementEnabled": false,
   "openingHours": "Open from 9:00 AM - 02:00 AM: 7 Days a Week",
   "instagramReelUrl": "https://www.instagram.com/reel/Cp1HhVhBkNt/embed/captioned/",
+  "deliveryLinks": {
+    "deliveroo": "https://deliveroo.hk/en/menu/hong-kong/yau-ma-tei/my-kitchen-mong-kok-indian",
+    "foodpanda": "https://www.foodpanda.hk/restaurant/otuy/my-kitchen",
+    "openrice": "https://www.openrice.com/en/hongkong/p-my-kitchen-p18735868"
+  },
   "tabs": [
     {
       "id": "menu-main",

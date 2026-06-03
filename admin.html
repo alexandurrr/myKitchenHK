@@ -93,46 +93,64 @@
     </div>
   </div>
 
-  <!-- Announcement -->
-  <div id="announcementSection" class="card mb-4 shadow-sm border-0" style="display:none">
-    <div class="card-body">
-      <label class="form-label fw-semibold mb-1">
-        <i class="bi bi-megaphone text-danger"></i> Announcement Banner
-      </label>
-      <div class="input-group">
-        <input class="form-control" id="announcementInput" placeholder="e.g. Closed this Sunday 8 June. Back Monday!">
-        <button class="btn btn-outline-secondary" id="announcementToggle" type="button" style="min-width:90px"></button>
-      </div>
-      <div class="form-text">Type a message, click <strong>Show</strong> to publish. Saves with <strong>Save button</strong>.</div>
-      <div id="announcementPreview" class="mt-2 rounded px-3 py-2" style="display:none; background:#c0392b; color:#fff; font-size:.9rem; font-weight:500; word-break:break-word;"></div>
-    </div>
-  </div>
-
-  <!-- Site Settings -->
-  <div id="settingsSection" class="card mb-4 shadow-sm border-0" style="display:none">
-    <div class="card-body">
-      <label class="form-label fw-semibold mb-2">
-        <i class="bi bi-gear text-secondary"></i> Site Settings
-      </label>
-      <div class="row g-3">
-        <div class="col-md-6">
-          <label class="form-label small mb-1">Opening Hours</label>
-          <input class="form-control form-control-sm" id="openingHoursInput" placeholder="Open from 8:30 AM: 7 Days a Week">
-          <div class="form-text">Shown in the contact section and footer.</div>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label small mb-1">Instagram Reel Embed URL</label>
-          <input class="form-control form-control-sm font-monospace" id="instagramReelInput" placeholder="https://www.instagram.com/reel/…/embed/captioned/">
-          <div class="form-text">Full embed URL for the reel on the homepage.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Tabs + content -->
   <div id="editorSection" style="display:none">
     <ul class="nav nav-pills mb-3" id="tabPills"></ul>
     <div id="tabContent"></div>
+    <!-- Settings tab panel — persists in DOM so form values survive tab switches -->
+    <div id="settingsPanel" style="display:none">
+      <div class="card mb-3 border-0 shadow-sm">
+        <div class="card-body">
+          <label class="form-label fw-semibold mb-1">
+            <i class="bi bi-megaphone text-danger"></i> Announcement Banner
+          </label>
+          <div class="input-group">
+            <input class="form-control" id="announcementInput" placeholder="e.g. Closed this Sunday 8 June. Back Monday!">
+            <button class="btn btn-outline-secondary" id="announcementToggle" type="button" style="min-width:90px"></button>
+          </div>
+          <div class="form-text">Type a message, click <strong>Show</strong> to publish. Saves with <strong>Save button</strong>.</div>
+          <div id="announcementPreview" style="display:none; background:linear-gradient(90deg,#a32020 0%,#c0392b 50%,#a32020 100%); border-bottom:2px solid rgba(77,184,184,0.5); color:#fff; font-size:.9rem; font-weight:600; padding:11px 16px; letter-spacing:.3px; margin-top:10px; border-radius:4px; word-break:break-word; text-align:center;">
+            <i class="bi bi-megaphone-fill me-2" style="font-size:.85rem;opacity:.9"></i><span id="announcementPreviewText"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3 border-0 shadow-sm">
+        <div class="card-body">
+          <label class="form-label fw-semibold mb-2">
+            <i class="bi bi-gear text-secondary"></i> Site Settings
+          </label>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label small mb-1">Opening Hours</label>
+              <input class="form-control form-control-sm" id="openingHoursInput" placeholder="Open from 8:30 AM: 7 Days a Week">
+              <div class="form-text">Shown in contact section and footer.</div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small mb-1">Instagram Reel Embed URL</label>
+              <input class="form-control form-control-sm font-monospace" id="instagramReelInput" placeholder="https://www.instagram.com/reel/…/embed/captioned/">
+              <div class="form-text">Reel shown on the homepage.</div>
+            </div>
+            <div class="col-12 pt-1">
+              <div class="form-text fw-semibold text-secondary mb-2" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.5px">Delivery Platform URLs</div>
+              <div class="row g-2">
+                <div class="col-md-4">
+                  <label class="form-label small mb-1">Deliveroo</label>
+                  <input class="form-control form-control-sm font-monospace" id="deliverooUrl" placeholder="https://deliveroo.hk/…">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label small mb-1">Foodpanda</label>
+                  <input class="form-control form-control-sm font-monospace" id="foodpandaUrl" placeholder="https://www.foodpanda.hk/…">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label small mb-1">OpenRice</label>
+                  <input class="form-control form-control-sm font-monospace" id="openriceUrl" placeholder="https://www.openrice.com/…">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -242,7 +260,8 @@
   const OWNER       = 'alexandurrr';
   const REPO        = 'myKitchenHK';
   const BRANCH      = 'main';
-  const GALLERY_TAB = '__gallery__';
+  const GALLERY_TAB  = '__gallery__';
+  const SETTINGS_TAB = '__settings__';
 
   let pat           = localStorage.getItem('gh_pat') || '';
   let menuData      = null;
@@ -343,12 +362,10 @@
       gallerySha  = galleryResult.sha;
       activeTab   = menuData.tabs[0]?.id || GALLERY_TAB;
 
-      document.getElementById('authSection').style.display        = 'none';
-      document.getElementById('announcementSection').style.display = '';
-      document.getElementById('settingsSection').style.display    = '';
-      document.getElementById('editorSection').style.display      = '';
-      document.getElementById('stickyBar').style.display          = '';
-      document.getElementById('logoutBtn').style.display          = '';
+      document.getElementById('authSection').style.display   = 'none';
+      document.getElementById('editorSection').style.display = '';
+      document.getElementById('stickyBar').style.display     = '';
+      document.getElementById('logoutBtn').style.display     = '';
       renderEditor();
     } catch (err) {
       setAuthStatus('Error: ' + err.message, 'danger');
@@ -358,12 +375,10 @@
   function logout() {
     localStorage.removeItem('gh_pat');
     pat = ''; menuData = null; menuSha = null; galleryData = null; gallerySha = null;
-    document.getElementById('authSection').style.display        = '';
-    document.getElementById('announcementSection').style.display = 'none';
-    document.getElementById('settingsSection').style.display    = 'none';
-    document.getElementById('editorSection').style.display      = 'none';
-    document.getElementById('stickyBar').style.display          = 'none';
-    document.getElementById('logoutBtn').style.display          = 'none';
+    document.getElementById('authSection').style.display   = '';
+    document.getElementById('editorSection').style.display = 'none';
+    document.getElementById('stickyBar').style.display     = 'none';
+    document.getElementById('logoutBtn').style.display     = 'none';
     document.getElementById('patInput').value = '';
     setAuthStatus('', '');
   }
@@ -411,32 +426,36 @@
     syncAnnouncementUI();
   });
 
+  function setAnnouncementPreview(text) {
+    const preview     = document.getElementById('announcementPreview');
+    const previewText = document.getElementById('announcementPreviewText');
+    if (!preview || !previewText) return;
+    previewText.textContent = text.trim();
+    preview.style.display   = text.trim() ? '' : 'none';
+  }
+
   document.getElementById('announcementInput').addEventListener('input', function () {
     menuData.announcement = this.value;
-    const preview = document.getElementById('announcementPreview');
-    if (preview) {
-      preview.textContent = this.value.trim();
-      preview.style.display = this.value.trim() ? '' : 'none';
-    }
+    setAnnouncementPreview(this.value);
   });
 
   function syncAnnouncementUI() {
     const enabled = !!menuData.announcementEnabled;
     const text    = menuData.announcement || '';
-    document.getElementById('announcementInput').value            = text;
-    document.getElementById('announcementToggle').textContent     = enabled ? 'Hide' : 'Show';
-    document.getElementById('announcementToggle').className       = enabled
+    document.getElementById('announcementInput').value        = text;
+    document.getElementById('announcementToggle').textContent = enabled ? 'Hide' : 'Show';
+    document.getElementById('announcementToggle').className   = enabled
       ? 'btn btn-danger' : 'btn btn-outline-secondary';
-    const preview = document.getElementById('announcementPreview');
-    if (preview) {
-      preview.textContent   = text.trim();
-      preview.style.display = text.trim() ? '' : 'none';
-    }
+    setAnnouncementPreview(text);
   }
 
   function syncSettingsUI() {
-    document.getElementById('openingHoursInput').value  = menuData.openingHours  || '';
+    document.getElementById('openingHoursInput').value  = menuData.openingHours     || '';
     document.getElementById('instagramReelInput').value = menuData.instagramReelUrl || '';
+    const dl = menuData.deliveryLinks || {};
+    document.getElementById('deliverooUrl').value = dl.deliveroo || '';
+    document.getElementById('foodpandaUrl').value = dl.foodpanda || '';
+    document.getElementById('openriceUrl').value  = dl.openrice  || '';
   }
 
   document.getElementById('openingHoursInput').addEventListener('input', function () {
@@ -445,6 +464,14 @@
 
   document.getElementById('instagramReelInput').addEventListener('input', function () {
     menuData.instagramReelUrl = this.value;
+  });
+
+  ['deliverooUrl','foodpandaUrl','openriceUrl'].forEach(function(id) {
+    document.getElementById(id).addEventListener('input', function() {
+      if (!menuData.deliveryLinks) menuData.deliveryLinks = {};
+      const key = { deliverooUrl: 'deliveroo', foodpandaUrl: 'foodpanda', openriceUrl: 'openrice' }[id];
+      menuData.deliveryLinks[key] = this.value;
+    });
   });
 
   // ── Tab rendering ────────────────────────────────────────────────────────────
@@ -460,7 +487,8 @@
     const pills = document.getElementById('tabPills');
     const tabs  = [
       ...menuData.tabs.map(t => ({ id: t.id, label: t.label })),
-      { id: GALLERY_TAB, label: '<i class="bi bi-images"></i> Gallery' }
+      { id: GALLERY_TAB,  label: '<i class="bi bi-images"></i> Gallery' },
+      { id: SETTINGS_TAB, label: '<i class="bi bi-gear"></i> Site Settings' }
     ];
     pills.innerHTML = tabs.map(t => `
       <li class="nav-item">
@@ -472,10 +500,13 @@
   }
 
   function renderActiveTab() {
-    const isGallery = activeTab === GALLERY_TAB;
-    document.getElementById('addItemBtn').style.display      = isGallery ? 'none' : '';
+    const isGallery  = activeTab === GALLERY_TAB;
+    const isSettings = activeTab === SETTINGS_TAB;
+    document.getElementById('addItemBtn').style.display      = (!isGallery && !isSettings) ? '' : 'none';
     document.getElementById('uploadPhotosBtn').style.display = isGallery ? '' : 'none';
-    isGallery ? renderGalleryContent() : renderMenuContent();
+    document.getElementById('tabContent').style.display      = isSettings ? 'none' : '';
+    document.getElementById('settingsPanel').style.display   = isSettings ? '' : 'none';
+    if (!isSettings) isGallery ? renderGalleryContent() : renderMenuContent();
   }
 
   // ── Menu tab ─────────────────────────────────────────────────────────────────

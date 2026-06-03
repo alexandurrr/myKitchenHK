@@ -84,17 +84,17 @@
                 <li><a href="#why-us">Why Us?</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li>
-                    <a target="_blank" href="https://deliveroo.hk/en/menu/hong-kong/yau-ma-tei/my-kitchen-mong-kok-indian" aria-label="Order on Deliveroo">
+                    <a target="_blank" href="https://deliveroo.hk/en/menu/hong-kong/yau-ma-tei/my-kitchen-mong-kok-indian" data-delivery="deliveroo" aria-label="Order on Deliveroo">
                         <picture><source srcset="assets/icons/deliveroo-icon.webp" type="image/webp"><img src="assets/icons/deliveroo-icon.png" alt="" width="32" height="32"></picture>
                     </a>
                 </li>
                 <li>
-                    <a target="_blank" href="https://www.openrice.com/en/hongkong/p-my-kitchen-p18735868" aria-label="My Kitchen on OpenRice">
+                    <a target="_blank" href="https://www.openrice.com/en/hongkong/p-my-kitchen-p18735868" data-delivery="openrice" aria-label="My Kitchen on OpenRice">
                         <picture><source srcset="assets/icons/openrice-icon.webp" type="image/webp"><img src="assets/icons/openrice-icon.png" alt="" width="32" height="32"></picture>
                     </a>
                 </li>
                 <li>
-                    <a target="_blank" href="https://www.foodpanda.hk/restaurant/otuy/my-kitchen" aria-label="Order on Foodpanda">
+                    <a target="_blank" href="https://www.foodpanda.hk/restaurant/otuy/my-kitchen" data-delivery="foodpanda" aria-label="Order on Foodpanda">
                         <picture><source srcset="assets/icons/foodpanda-icon.webp" type="image/webp"><img src="assets/icons/foodpanda-icon.png" alt="" width="32" height="32"></picture>
                     </a>
                 </li>
@@ -124,9 +124,10 @@
 </header><!-- End Header -->
 
 <!-- Announcement banner — text loaded from menu.json, empty = hidden -->
-<div id="announcementBar" role="alert" style="display:none;position:fixed;left:0;right:0;z-index:996;background:#c0392b;color:#fff;text-align:center;padding:10px 48px;font-weight:500;font-size:.95rem;line-height:1.4;box-shadow:0 2px 8px rgba(0,0,0,.25)">
+<div id="announcementBar" role="alert" style="display:none;position:fixed;left:0;right:0;z-index:996;background:linear-gradient(90deg,#a32020 0%,#c0392b 50%,#a32020 100%);border-bottom:2px solid rgba(77,184,184,0.5);color:#fff;text-align:center;padding:11px 48px;font-weight:600;font-size:.9rem;line-height:1.4;letter-spacing:.3px;box-shadow:0 2px 12px rgba(0,0,0,.35)">
+  <i class="bi bi-megaphone-fill" style="margin-right:8px;font-size:.85rem;opacity:.9"></i>
   <span id="announcementText"></span>
-  <button id="announcementClose" aria-label="Dismiss" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:1.4rem;line-height:1;cursor:pointer;padding:2px 8px;opacity:.85">&times;</button>
+  <button id="announcementClose" aria-label="Dismiss" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:1.4rem;line-height:1;cursor:pointer;padding:2px 8px;opacity:.75">&times;</button>
 </div>
 
 <!-- ======= Hero Section ======= -->
@@ -761,13 +762,13 @@
                         </a> 
                              Or +852 9845 9097 - To Book in Advance</p></strong>
                         <strong><p>Delivery Options:
-                            <a target="_blank" href="https://deliveroo.hk/en/menu/hong-kong/yau-ma-tei/my-kitchen-mong-kok-indian">
+                            <a target="_blank" href="https://deliveroo.hk/en/menu/hong-kong/yau-ma-tei/my-kitchen-mong-kok-indian" data-delivery="deliveroo">
                                 <picture><source srcset="assets/icons/deliveroo-icon.webp" type="image/webp"><img style="margin-right: 10px" src="assets/icons/deliveroo-icon.png" alt="deliveroo" width="36" height="36"></picture>
                             </a>
-                            <a target="_blank" href="https://www.foodpanda.hk/restaurant/otuy/my-kitchen">
+                            <a target="_blank" href="https://www.foodpanda.hk/restaurant/otuy/my-kitchen" data-delivery="foodpanda">
                                 <picture><source srcset="assets/icons/foodpanda-icon.webp" type="image/webp"><img style="margin-right: 10px" src="assets/icons/foodpanda-icon.png" alt="foodpanda" width="36" height="36"></picture>
                             </a>
-                            <a target="_blank" href="https://www.openrice.com/en/hongkong/p-my-kitchen-p18735868">
+                            <a target="_blank" href="https://www.openrice.com/en/hongkong/p-my-kitchen-p18735868" data-delivery="openrice">
                                 <picture><source srcset="assets/icons/openrice-icon.webp" type="image/webp"><img style="margin-right: 10px" src="assets/icons/openrice-icon.png" alt="openrice" width="36" height="36"></picture>
                             </a></p></strong>
                         <p class="fst-italic">
@@ -824,7 +825,7 @@
                         </div><!-- End Icon Box -->
 
                         <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
-                            <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+                            <div class="icon-box d-flex flex-column align-items-center">
                                 <i class="bi bi-cup-hot"></i>
                                 <h4>Cooked Fresh to Order</h4>
                                 <p>Nothing pre-made, nothing reheated. Every momo is folded when you order. That is the My Kitchen promise.</p>
@@ -870,13 +871,13 @@
                         <i class="icon bi bi-bag flex-shrink-0"></i>
                         <div>
                             <h3>Order Take-Away</h3>
-                            <a target="_blank" href="https://deliveroo.hk/en/menu/hong-kong/yau-ma-tei/my-kitchen-mong-kok-indian">
+                            <a target="_blank" href="https://deliveroo.hk/en/menu/hong-kong/yau-ma-tei/my-kitchen-mong-kok-indian" data-delivery="deliveroo">
                                 <picture><source srcset="assets/icons/deliveroo-icon.webp" type="image/webp"><img style="margin-right: 10px" src="assets/icons/deliveroo-icon.png" alt="Deliveroo logo, featuring a kangaroo icon in white and teal against a teal background." width="36" height="36"></picture>
                             </a>
-                            <a target="_blank" href="https://www.openrice.com/en/hongkong/p-my-kitchen-p18735868">
+                            <a target="_blank" href="https://www.openrice.com/en/hongkong/p-my-kitchen-p18735868" data-delivery="openrice">
                                 <picture><source srcset="assets/icons/openrice-icon.webp" type="image/webp"><img style="margin-right: 10px" src="assets/icons/openrice-icon.png" alt="Openrice logo, featuring a bowl of rice icon in orange and white against a brown background." width="36" height="36"></picture>
                             </a>
-                            <a target="_blank" href="https://www.foodpanda.hk/restaurant/otuy/my-kitchen">
+                            <a target="_blank" href="https://www.foodpanda.hk/restaurant/otuy/my-kitchen" data-delivery="foodpanda">
                                 <picture><source srcset="assets/icons/foodpanda-icon.webp" type="image/webp"><img style="margin-right: 10px" src="assets/icons/foodpanda-icon.png" alt="Foodpanda logo, featuring a panda icon in white and pink against a pink background." width="36" height="36"></picture>
                             </a>
                         </div>
@@ -1121,6 +1122,14 @@
 
       // Instagram reel URL — expose for the facade click handler
       if (data.instagramReelUrl) window._igReelUrl = data.instagramReelUrl;
+
+      // Delivery links — update all [data-delivery] anchors from config
+      if (data.deliveryLinks) {
+        document.querySelectorAll('[data-delivery]').forEach(function(link) {
+          var url = data.deliveryLinks[link.dataset.delivery];
+          if (url) link.href = url;
+        });
+      }
 
       // Announcement banner — only show if enabled AND non-empty
       var ann = (data.announcement || '').trim();
