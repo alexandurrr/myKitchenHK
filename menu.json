@@ -15,14 +15,6 @@
       "title": "Menu",
       "items": [
         {
-          "name": "Whole Wheat Tibetan Brown Bread",
-          "ingredients": "gluten",
-          "price": "$10.00 per piece",
-          "image": "assets/img/menu/tibetan_brown_bread.jpg",
-          "imageWebp": "assets/img/menu/tibetan_brown_bread.webp",
-          "alt": "Fresh Whole Wheat Tibetan Brown Bread, ready in a serving platter."
-        },
-        {
           "name": "Taipo Chicken Momo",
           "ingredients": "chicken, gluten",
           "price": "$50.00",
@@ -213,14 +205,6 @@
           "image": "assets/img/menu/spicy_mixed_veggies.jpg",
           "imageWebp": "assets/img/menu/spicy_mixed_veggies.webp",
           "alt": "Spicy Mixed Vegetables in a black container."
-        },
-        {
-          "name": "Dhankdu (Cold Thukpa)",
-          "ingredients": "gluten, chicken",
-          "price": "$50.00",
-          "image": "assets/img/menu/dhankdu.jpg",
-          "imageWebp": "assets/img/menu/dhankdu.webp",
-          "alt": "Tibetan Dhankdu (Cold Thukpa) in a green bowl against a white background."
         }
       ]
     },
