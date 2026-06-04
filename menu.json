@@ -15,14 +15,6 @@
       "title": "Menu",
       "items": [
         {
-          "name": "Khabse",
-          "ingredients": "gluten, milk",
-          "price": "$10.00 per piece",
-          "image": "assets/img/menu/khabse.jpg",
-          "imageWebp": "assets/img/menu/khabse.webp",
-          "alt": "Tibetan Khabse freshly cooked, on a strainer in the kitchen."
-        },
-        {
           "name": "Whole Wheat Tibetan Brown Bread",
           "ingredients": "gluten",
           "price": "$10.00 per piece",
