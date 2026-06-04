@@ -47,20 +47,20 @@
           "alt": "Spicy Paneer served on a white plate against a white background."
         },
         {
-          "name": "Spicy Chili Momo",
-          "ingredients": "gluten, beef/chicken/buffalo",
-          "price": "$75.00 Beef/Buff\n$75.00 Chicken\n$75.00 Veg",
-          "image": "assets/img/menu/spicy_chili_momo.jpg",
-          "imageWebp": "assets/img/menu/spicy_chili_momo.webp",
-          "alt": "Spicy Chicken Momo served in a black bowl on a metal background."
-        },
-        {
           "name": "Steamed Momo",
           "ingredients": "gluten, chicken",
           "price": "$55.00 Beef/Buff\n$50.00 Chicken\n$50.00 Veg",
           "image": "assets/img/menu/chicken_momo_steamed.jpg",
           "imageWebp": "assets/img/menu/chicken_momo_steamed.webp",
           "alt": "Steamed Chicken Momo on a white plate against a wood background."
+        },
+        {
+          "name": "Chilly Momo",
+          "ingredients": "gluten, beef/chicken/buffalo",
+          "price": "$75.00 Beef/Buff\n$75.00 Chicken\n$75.00 Veg",
+          "image": "assets/img/menu/spicy_chili_momo.jpg",
+          "imageWebp": "assets/img/menu/spicy_chili_momo.webp",
+          "alt": "Spicy Chicken Momo served in a black bowl on a metal background."
         },
         {
           "name": "Tibetan Bhalep Bread",
@@ -189,14 +189,6 @@
           "image": "assets/img/menu/samosa.jpg",
           "imageWebp": "assets/img/menu/samosa.webp",
           "alt": "Samosa served with green sauce on a dark plate against a dark background."
-        },
-        {
-          "name": "Tingmo Bun",
-          "ingredients": "gluten",
-          "price": "$7.00 per piece",
-          "image": "assets/img/menu/tingmo.jpg",
-          "imageWebp": "assets/img/menu/tingmo.webp",
-          "alt": "Tibetan Tingmo Buns freshly cooked on a metal bowl in the kitchen."
         },
         {
           "name": "Spicy Mixed Vegetables",
